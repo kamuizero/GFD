@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+    <title>Prueba Google Maps</title>
+
+    <script src="js/jquery-3.1.1.js"></script>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFt6MSFMohozFOuPIVrs_1hZFwyqpyPTo&callback=initMap"></script>
+    <script src="js/main.js" defer="defer"></script>
+
+</head>
+<body>
+    <header>外国人フレンドリークリニック集</header>
+    <br>
+    <br>
+    Developed for the LODチャンレンジ２０１６.
+    <br>
+    <br>
+
+    <input type="checkbox" id="kitakami" onclick="Markers('kitakami')" checked="checked" />北上市<br>
+
+    <br>
+
+    <section>
+        <div id="map" class="center"></div>
+    </section>
+
+    <footer>
+        License: CC-BY <div id="divImgCC"><img src="res/img/cc-by.png">
+    </div>
+    </footer>
+
+</body>
+</html>
