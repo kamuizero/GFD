@@ -10,7 +10,6 @@ $(document).ready(function () {
     //TODOLISTA: Tercero, cuando se haga click, mostrar la informacion y poner el link a una pagina de edicion de ese punto en el mapa
     //TODO: Cuarto, pagina de edicion y evaluacion de la clinica y institucion de salud
 
-    //cargarClinicasv2();
 });
 
 //////////////////////////////
@@ -18,17 +17,27 @@ $(document).ready(function () {
 //////////////////////////////
 
 var posicionInicial = {lat: 35.1547072, lng: 136.9613086};
+var icons = {
+    health: {
+        icon: 'res/icon/health_icon.png'
+    },
+    clinic: {
+        icon: 'res/icon/clinic_icon.png'
+    },
+    hospital: {
+        icon: 'res/icon/hospital_icon.png'
+    }
+}
 var map;
 
 var allMarkersData =[];
 var activeInfoWindow;
+var activeMarker;
 
 //////////////////////////////
 
 //Funcion que inicializa el mapa de Google Maps
 function initMap() {
-
-    //var uluru = {lat: -25.363, lng: 131.044};
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
@@ -43,59 +52,28 @@ function initMap() {
         streetViewControl: false
     });
 
-    /*
-    var contentString = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-        '<div id="bodyContent">'+
-        '<p><b>Uluru</b>, esto es un texto de prueba... '+
-        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-        'south west of the nearest large town, Alice Springs; 450&#160;km '+
-        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-        'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-        'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-        'Aboriginal people of the area. It has many springs, waterholes, '+
-        'rock caves and ancient paintings. Uluru is listed as a World '+
-        'Heritage Site.</p>'+
-        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-        'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-        '(last visited June 22, 2009).</p>'+
-        '</div>'+
-        '</div>';
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    //Agregar el marcador ULURU
-    var marker = new google.maps.Marker({
-        position: uluru,
-        map: map,
-        title: 'Uluru (Ayers Rock)'
-    });
-    marker.addListener('click', function() {
-        infowindow.open(map, marker);
-    });
-    */
-
-    cargarClinicasv2();
+    cargarClinicas();
 }
 
-
 function addMarkerInfoWindow(feature, mapa) {
+
+    var image = {
+        url: icons[feature.type].icon,
+        scaledSize : new google.maps.Size(35, 49),
+    }
 
     var marker = new google.maps.Marker({
         description:feature.description,
         position: feature.position,
         map: mapa,
         title: feature.title,
-        type: feature.type
+        type: feature.type,
+        icon: image
     });
 
 
     var infowindow = new google.maps.InfoWindow();
-    infowindow.setContent(crearContenido2(marker));
+    infowindow.setContent(crearContenido(marker));
 
     function toggleBounce () {
         if (marker.getAnimation() != null) {
@@ -117,6 +95,8 @@ function addMarkerInfoWindow(feature, mapa) {
 
         //Guardamos la ventana para poder ocultarla luego
         activeInfoWindow = infowindow;
+        activeMarker = marker;
+
         //Centramos el mapa
         //map.setCenter(marker.getPosition());
         map.panTo(marker.getPosition());
@@ -128,16 +108,34 @@ function addMarkerInfoWindow(feature, mapa) {
     return(marker);
 }
 
-function crearContenido2(marker){
+function crearContenido(marker) {;
+
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
         '<br><br>' +
         'Languages: ' +
-        '<p><a href="clinicReview.html?name=' + marker.title + '">'+
+        //'<p><a href="clinicReview.html?clinic=' + m2 + '">'+
+        '<p><a href="#" title="Click to add clinic review" onclick="reviewClinic(); return false;">'+
         'Review clinic</a></p>';
     return html;
 }
 
-function cargarClinicasv2(){
+function reviewClinic() {
+    var x = markerASimple(activeMarker);
+    localStorage.setItem('clinica',JSON.stringify(x));
+    location.assign('clinicReview.html');
+}
+
+function markerASimple(marker) {
+    var ret = {
+        description: marker.description,
+        position: marker.position,
+        title: marker.title,
+        type: marker.type
+    };
+    return ret;
+}
+
+function cargarClinicas(){
 
     var this_data_list = [];
 
@@ -198,7 +196,7 @@ function cargarClinicasv2(){
                     position: new google.maps.LatLng(Number(this_data_list[j][3]), Number(this_data_list[j][4])),
                     type: 'health',
                     title: this_data_list[j][1],
-                    description: this_data_list[j][1]
+                    description: this_data_list[j][2]
                 }
 
                 //Agregamos al arreglo de Marcadores
