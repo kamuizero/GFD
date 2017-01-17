@@ -9,6 +9,24 @@ $(document).ready(function () {
     obtenerClinica();
 });
 
+function initMap() {
+
+    map = new google.maps.Map(document.getElementById('mapaClinica'), {
+        zoom: 6,
+        //center: uluru,
+        center: posicionInicial,
+        mapTypeControl: false,
+        zoomControl: true,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_CENTER
+        },
+        scaleControl: true,
+        streetViewControl: false
+    });
+
+    //Cargar el marcador
+}
+
 function obtenerClinica() {
     var feature = JSON.parse(localStorage.getItem('clinica'));
 

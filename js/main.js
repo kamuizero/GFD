@@ -27,7 +27,7 @@ var icons = {
     hospital: {
         icon: 'res/icon/hospital_icon.png'
     }
-}
+};
 var map;
 
 var allMarkersData =[];
@@ -59,8 +59,8 @@ function addMarkerInfoWindow(feature, mapa) {
 
     var image = {
         url: icons[feature.type].icon,
-        scaledSize : new google.maps.Size(35, 49),
-    }
+        scaledSize : new google.maps.Size(35, 49)
+    };
 
     var marker = new google.maps.Marker({
         description:feature.description,
@@ -108,7 +108,7 @@ function addMarkerInfoWindow(feature, mapa) {
     return(marker);
 }
 
-function crearContenido(marker) {;
+function crearContenido(marker) {
 
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
         '<br><br>' +
@@ -184,7 +184,7 @@ function cargarClinicas(){
                 }
 
                 this_data_list.push(this_object_list);
-            };
+            }
 
             var clinicas =[];
 
@@ -195,9 +195,53 @@ function cargarClinicas(){
                 var clinica = {
                     position: new google.maps.LatLng(Number(this_data_list[j][3]), Number(this_data_list[j][4])),
                     type: 'health',
-                    title: this_data_list[j][1],
-                    description: this_data_list[j][2]
-                }
+                    id: this_data_list[j][0], //ID dentro de la lista de clinicas
+                    title: this_data_list[j][1], //Nombre
+                    description: this_data_list[j][2], //Direccion
+
+                    /* Doctor */
+
+                    doctorSpeaksEnglishTrue: this_data_list[j][5], //Doctor habla ingles - Votos positivos
+                    doctorSpeaksEnglishFalse: this_data_list[j][6], //Doctor habla ingles - Votos negativos
+
+                    doctorSpeaksChineseTrue: this_data_list[j][7], //Doctor habla Chino - Votos positivos
+                    doctorSpeaksChineseFalse: this_data_list[j][8], //Doctor habla Chino - Votos negativos
+
+                    doctorSpeaksKoreanTrue: this_data_list[j][9], //Doctor habla Coreano - Votos positivos
+                    doctorSpeaksKoreanFalse: this_data_list[j][10], //Doctor habla Coreano - Votos negativos
+
+                    doctorSpeaksSpanishTrue: this_data_list[j][11], //Doctor habla Espanol - Votos positivos
+                    doctorSpeaksSpanishFalse: this_data_list[j][12], //Doctor habla Espanol - Votos negativos
+
+                    doctorSpeaksOtherTrue: this_data_list[j][13], //Doctor habla Otro idioma - Votos positivos
+                    doctorSpeaksOtherFalse: this_data_list[j][14], //Doctor habla Otro idioma - Votos negativos
+
+                    /* Personal */
+
+                    staffSpeaksEnglishTrue: this_data_list[j][15], //Personal habla ingles - Votos positivos
+                    staffSpeaksEnglishFalse: this_data_list[j][16], //Personal habla ingles - Votos negativos
+
+                    staffSpeaksChineseTrue: this_data_list[j][17], //Personal habla Chino - Votos positivos
+                    staffSpeaksChineseFalse: this_data_list[j][18], //Personal habla Chino - Votos negativos
+
+                    staffSpeaksKoreanTrue: this_data_list[j][19], //Personal habla Coreano - Votos positivos
+                    staffSpeaksKoreanFalse: this_data_list[j][20], //Personal habla Coreano - Votos negativos
+
+                    staffSpeaksSpanishTrue: this_data_list[j][21], //Personal habla Espanol - Votos positivos
+                    staffSpeaksSpanishFalse: this_data_list[j][22], //Personal habla Espanol - Votos negativos
+
+                    staffSpeaksOtherTrue: this_data_list[j][23], //Personal habla Otro idioma - Votos positivos
+                    staffSpeaksOtherFalse: this_data_list[j][24], //Personal habla Otro idioma - Votos negativos
+
+                    /* Evaluacion */
+
+                    friendlyL1:this_data_list[j][25], //1 Estrella
+                    friendlyL2:this_data_list[j][26], //2 Estrellas
+                    friendlyL3:this_data_list[j][27], //3 Estrellas
+
+                    foreignLanguageTreatmentExplanationTrue: this_data_list[j][28], //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+                    foreignLanguageTreatmentExplanationFalse: this_data_list[j][29] //Ofrecen posologia o indicaciones en idioma extranjero - Votos negativos
+                };
 
                 //Agregamos al arreglo de Marcadores
                 clinicas.push(clinica);
