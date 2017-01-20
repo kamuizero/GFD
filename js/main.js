@@ -16,7 +16,8 @@ $(document).ready(function () {
 ///// Variables globales /////
 //////////////////////////////
 
-var posicionInicial = {lat: 35.1547072, lng: 136.9613086};
+var posicionInicial = {lat: 35.1547072, lng: 136.9613086}; //Aichi
+
 var icons = {
     health: {
         icon: 'res/icon/health_icon.png'
@@ -63,14 +64,57 @@ function addMarkerInfoWindow(feature, mapa) {
     };
 
     var marker = new google.maps.Marker({
+        id: feature.id,
         description:feature.description,
         position: feature.position,
         map: mapa,
         title: feature.title,
         type: feature.type,
-        icon: image
-    });
+        icon: image,
 
+        /* Doctor */
+
+        doctorSpeaksEnglishTrue: feature.doctorSpeaksEnglishTrue, //Doctor habla ingles - Votos positivos
+        doctorSpeaksEnglishFalse: feature.doctorSpeaksEnglishFalse, //Doctor habla ingles - Votos negativos
+
+        doctorSpeaksChineseTrue: feature.doctorSpeaksChineseTrue, //Doctor habla Chino - Votos positivos
+        doctorSpeaksChineseFalse: feature.doctorSpeaksChineseFalse, //Doctor habla Chino - Votos negativos
+
+        doctorSpeaksKoreanTrue: feature.doctorSpeaksKoreanTrue, //Doctor habla Coreano - Votos positivos
+        doctorSpeaksKoreanFalse: feature.doctorSpeaksKoreanFalse, //Doctor habla Coreano - Votos negativos
+
+        doctorSpeaksSpanishTrue: feature.doctorSpeaksSpanishTrue, //Doctor habla Espanol - Votos positivos
+        doctorSpeaksSpanishFalse: feature.doctorSpeaksSpanishFalse, //Doctor habla Espanol - Votos negativos
+
+        doctorSpeaksOtherTrue: feature.doctorSpeaksOtherTrue, //Doctor habla Otro idioma - Votos positivos
+        doctorSpeaksOtherFalse: feature.doctorSpeaksOtherFalse, //Doctor habla Otro idioma - Votos negativos
+
+        /* Personal */
+
+        staffSpeaksEnglishTrue: feature.staffSpeaksEnglishTrue, //Personal habla ingles - Votos positivos
+        staffSpeaksEnglishFalse: feature.staffSpeaksEnglishFalse, //Personal habla ingles - Votos negativos
+
+        staffSpeaksChineseTrue: feature.staffSpeaksChineseTrue, //Personal habla Chino - Votos positivos
+        staffSpeaksChineseFalse: feature.staffSpeaksChineseFalse, //Personal habla Chino - Votos negativos
+
+        staffSpeaksKoreanTrue: feature.staffSpeaksKoreanTrue, //Personal habla Coreano - Votos positivos
+        staffSpeaksKoreanFalse: feature.staffSpeaksKoreanFalse, //Personal habla Coreano - Votos negativos
+
+        staffSpeaksSpanishTrue: feature.staffSpeaksSpanishTrue, //Personal habla Espanol - Votos positivos
+        staffSpeaksSpanishFalse: feature.staffSpeaksSpanishFalse, //Personal habla Espanol - Votos negativos
+
+        staffSpeaksOtherTrue: feature.staffSpeaksOtherTrue, //Personal habla Otro idioma - Votos positivos
+        staffSpeaksOtherFalse: feature.staffSpeaksOtherFalse, //Personal habla Otro idioma - Votos negativos
+
+        /* Evaluacion */
+
+        friendlyL1 : feature.friendlyL1, //1 Estrella
+        friendlyL2 : feature.friendlyL2, //2 Estrellas
+        friendlyL3 : feature.friendlyL3 , //3 Estrellas
+
+        foreignLanguageTreatmentExplanationTrue: feature.foreignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+        foreignLanguageTreatmentExplanationFalse: feature.foreignLanguageTreatmentExplanationFalse
+    });
 
     var infowindow = new google.maps.InfoWindow();
     infowindow.setContent(crearContenido(marker));
@@ -83,7 +127,7 @@ function addMarkerInfoWindow(feature, mapa) {
         }
     }
 
-    // this part makes the markers clickable
+    // Hacer que el marcador se pueda clickear
     google.maps.event.addListener(marker, 'click', function() {
 
         if(activeInfoWindow != null) activeInfoWindow.close();
@@ -127,10 +171,54 @@ function reviewClinic() {
 
 function markerASimple(marker) {
     var ret = {
+        id: marker.id,
         description: marker.description,
         position: marker.position,
         title: marker.title,
-        type: marker.type
+        type: marker.type,
+        icon: marker.icon,
+
+        doctorSpeaksEnglishTrue: marker.doctorSpeaksEnglishTrue, //Doctor habla ingles - Votos positivos
+        doctorSpeaksEnglishFalse: marker.doctorSpeaksEnglishFalse, //Doctor habla ingles - Votos negativos
+
+        doctorSpeaksChineseTrue: marker.doctorSpeaksChineseTrue, //Doctor habla Chino - Votos positivos
+        doctorSpeaksChineseFalse: marker.doctorSpeaksChineseFalse, //Doctor habla Chino - Votos negativos
+
+        doctorSpeaksKoreanTrue: marker.doctorSpeaksKoreanTrue, //Doctor habla Coreano - Votos positivos
+        doctorSpeaksKoreanFalse: marker.doctorSpeaksKoreanFalse, //Doctor habla Coreano - Votos negativos
+
+        doctorSpeaksSpanishTrue: marker.doctorSpeaksSpanishTrue, //Doctor habla Espanol - Votos positivos
+        doctorSpeaksSpanishFalse: marker.doctorSpeaksSpanishFalse, //Doctor habla Espanol - Votos negativos
+
+        doctorSpeaksOtherTrue: marker.doctorSpeaksOtherTrue, //Doctor habla Otro idioma - Votos positivos
+        doctorSpeaksOtherFalse: marker.doctorSpeaksOtherFalse, //Doctor habla Otro idioma - Votos negativos
+
+        /* Personal */
+
+        staffSpeaksEnglishTrue: marker.staffSpeaksEnglishTrue, //Personal habla ingles - Votos positivos
+        staffSpeaksEnglishFalse: marker.staffSpeaksEnglishFalse, //Personal habla ingles - Votos negativos
+
+        staffSpeaksChineseTrue: marker.staffSpeaksChineseTrue, //Personal habla Chino - Votos positivos
+        staffSpeaksChineseFalse: marker.staffSpeaksChineseFalse, //Personal habla Chino - Votos negativos
+
+        staffSpeaksKoreanTrue: marker.staffSpeaksKoreanTrue, //Personal habla Coreano - Votos positivos
+        staffSpeaksKoreanFalse: marker.staffSpeaksKoreanFalse, //Personal habla Coreano - Votos negativos
+
+        staffSpeaksSpanishTrue: marker.staffSpeaksSpanishTrue, //Personal habla Espanol - Votos positivos
+        staffSpeaksSpanishFalse: marker.staffSpeaksSpanishFalse, //Personal habla Espanol - Votos negativos
+
+        staffSpeaksOtherTrue: marker.staffSpeaksOtherTrue, //Personal habla Otro idioma - Votos positivos
+        staffSpeaksOtherFalse: marker.staffSpeaksOtherFalse, //Personal habla Otro idioma - Votos negativos
+
+        /* Evaluacion */
+
+        friendlyL1 : marker.friendlyL1, //1 Estrella
+        friendlyL2 : marker.friendlyL2, //2 Estrellas
+        friendlyL3 : marker.friendlyL3 , //3 Estrellas
+
+        foreignLanguageTreatmentExplanationTrue: marker.foreignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+        foreignLanguageTreatmentExplanationFalse: marker.foreignLanguageTreatmentExplanationFalse
+
     };
     return ret;
 }
