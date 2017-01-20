@@ -172,6 +172,8 @@ function obtenerClinica() {
         /* Load Doctor's friendliness level */
         //TODO: Mostrarlo como estrellas
 
+        $("#divRatingActitud").text(evaluarRating());
+
 
 
     }
@@ -233,4 +235,18 @@ function evaluarIdioma(idioma) {
         doctor : porcentajeTotalDoctor + '%',
         staff : porcentajeTotalStaff + '%'
     }
+}
+
+function evaluarRating() {
+    //Promedio ponderado
+    var round = Math.round();
+    var L1, L2, L3;
+
+    L1 = round(marker.friendlyL1);
+    L2 = round(marker.friendlyL2);
+    L3 = round(marker.friendlyL3);
+
+    var suma = L1+L2+L3;
+
+    return (suma==0)?0:( ((3*L3) + (2*L2) + (L1))/(suma) );
 }
