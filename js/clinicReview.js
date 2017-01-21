@@ -171,7 +171,7 @@ function obtenerClinica() {
 
         /* Load Doctor's friendliness level */
         //TODO: Mostrarlo como estrellas
-
+                
         $("#divRatingActitud").text(evaluarRating());
 
 
@@ -239,7 +239,7 @@ function evaluarIdioma(idioma) {
 
 function evaluarRating() {
     //Promedio ponderado
-    var round = Math.round();
+    var round = Math.round;
     var L1, L2, L3;
 
     L1 = round(marker.friendlyL1);
