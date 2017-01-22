@@ -1,3 +1,8 @@
+/* ESTILO BASE */
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%;
     margin: 0;
@@ -18,6 +23,36 @@ html, body {
     box-sizing: border-box;
 }
 
+/* FIN DE BASE */
+
+/* DEFINICION DE COLUMNAS PARA EL GRID LAYOUT */
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+/* FIN DE DEFINICION DE COLUMNAS PARA EL GRID LAYOUT */
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+    /*border: 1px solid red;*/
+}
+
 .center {
     margin: auto;
     width: 50%;
@@ -27,9 +62,10 @@ html, body {
 
 header{
     color: #fff;
-    font-size: 24px;
+    font-size: 32px;
     text-align: center;
     margin-top: 10px;
+    padding: 15px;
 }
 
 section{
@@ -84,6 +120,53 @@ a.btn:active {
     width: 500px;
 }
 
+/* ESTILOS PARA CLINIC REVIEW */
+
+.mapaReview {
+    width: 40%;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding:5px;
+}
+
+.datosReview {
+    width: 60%;
+    float: left;
+    padding: 10px;
+}
+
+/* FIN DE ESTILOS PARA CLINIC REVIEW */
+
 #infoWindowTitle {
     text-align: center;
 }
+
+/* Estilos para el star rating */
+
+/* Image(s) */
+.starbox .stars .star_holder .star {
+    background-image: url('../res/img/5-large-333.png'); /* or any other image */
+    width: 33px; /* make sure to use your image’s dimensions here */
+    height: 33px;
+}
+
+/* Colours */
+/*.starbox .stars { background: #cccccc; }*/
+.starbox .stars { background: ghostwhite; }
+/*.starbox .rated .stars { background: #dcdcdc; }*/
+.starbox .rated .stars { background: #dcdcdc; }
+/*.starbox .rated.hover .stars { background: #cccccc; }*/
+.starbox .rated.hover .stars { background: #cccccc; }
+/*.starbox .colorbar { background: #1e90ff; }*/
+.starbox .colorbar { background: gold; }
+/*.starbox .hover .colorbar { background: #ffcc1c; }*/
+.starbox .hover .colorbar { background: #ffcc1c; }
+/*.starbox .rated .colorbar { background: #64b2ff; }*/
+.starbox .rated .colorbar { background: greenyellow; }
+/*.starbox .rated.hover .colorbar { background: #1e90ff; }*/
+.starbox .rated.hover .colorbar { background: #1e90ff; }
+/*.starbox .ghost { background: #a1a1a1; }*/
+.starbox .ghost { background: lightslategray; }
+
+/* Fin de estilos para el star rating */

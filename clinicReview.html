@@ -5,64 +5,76 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 
     <title>クリニック・病院の評価</title>
+
+    <link rel="stylesheet" href="css/jstarbox.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/rating.min.css">
+
     <link rel="shortcut icon" href="favicon.ico" />
 
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/clinicReview.js"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFt6MSFMohozFOuPIVrs_1hZFwyqpyPTo"></script>
+    <script src="js/jstarbox.js"></script>
+
 </head>
 <body>
 
 <header onclick=" location.assign('index.html'); return false;">外国人フレンドリークリニック集</header>
-<br>
-<br>
-<h1> Developed for the LODチャンレンジ２０１６</h1>
+<div class="row">
 
-<h2>Clinic details</h2>
-<br>
-<section id="clinicInfo">
+    <h1> Developed for the LODチャンレンジ２０１６</h1>
 
-    <div id="mapaClinica"></div>
+    <h2>Clinic details</h2>
+</div>
 
-    <div id="datosBasicos">
-        <div id="divNombreClinica"></div>
-        <div id="divDireccionClinica"></div>
+<div id="clinicInfo" class="row">
+
+    <div id="mapaClinica" class="col-4"></div>
+
+    <div class="datosReview">
+        <div id="datosBasicos">
+            <div id="divNombreClinica"></div>
+            <div id="divDireccionClinica"></div>
+        </div>
+        <br>
+        <br>
+
+        Languages Spoken by Staff and Doctor
+        <br>
+        <br>
+        <div id="divIngles"></div>
+        <br>
+        <div id="divChino"></div>
+        <br>
+        <div id="divCoreano"></div>
+        <br>
+        <div id="divEspanol"></div>
+        <br>
+        <div id="divOtroIdioma"></div>
+        <br>
+        <br>
+
+        Doctor's Foreigner Friendliness level
+
+        <br>
+        Stars
+
+        <div class="starbox"> </div>
+
+        <ul class="c-rating" id="el">
+        </ul>
+
+        Numeric
+        <div id="divRatingActitud"></div>
+
+        Prescription, Indications and dosage explanation in foreign language?
+        <div id="divRatingExplicacion"></div>
     </div>
-    <br>
-    <br>
 
-    Languages Spoken by Staff and Doctor
-    <br>
-    <br>
-    <div id="divIngles"></div>
-    <br>
-    <div id="divChino"></div>
-    <br>
-    <div id="divCoreano"></div>
-    <br>
-    <div id="divEspanol"></div>
-    <br>
-    <div id="divOtroIdioma"></div>
-    <br>
-    <br>
 
-    Doctor's Foreigner Friendliness level
-
-    <br>
-    Stars
-    <div id="el"></div>
-    <br>
-    <br>
-    Numeric
-    <div id="divRatingActitud"></div>
-
-    Prescription, Indications and dosage explanation in foreign language?
-    <div id="divRatingExplicacion"></div>
-
-</section>
-
+</div>
 
 </body>
 </html>

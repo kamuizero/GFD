@@ -146,35 +146,63 @@ function obtenerClinica() {
 
         langLevel = evaluarIdioma('ingles');
 
-        $("#divIngles").text('Percentile for staff: ' + langLevel.staff + '  ' +
+        $("#divIngles").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
             'Percentile for doctor: ' + langLevel.doctor);
 
         langLevel = evaluarIdioma('chino');
 
-        $("#divChino").text('Percentile for staff: ' + langLevel.staff  + '  ' +
+        $("#divChino").text('Percentile for staff: ' + langLevel.staff  + ' -- ' +
             'Percentile for doctor: ' + langLevel.doctor);
 
         langLevel = evaluarIdioma('coreano');
 
-        $("#divCoreano").text('Percentile for staff: ' + langLevel.staff + '  ' +
+        $("#divCoreano").text('Percentile for staff: ' + langLevel.staff + ' --  ' +
             'Percentile for doctor: ' + langLevel.doctor);
 
         langLevel = evaluarIdioma('espanol');
 
-        $("#divEspanol").text('Percentile for staff: ' + langLevel.staff + '  ' +
+        $("#divEspanol").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
             'Percentile for doctor: ' + langLevel.doctor);
 
         langLevel = evaluarIdioma('otro');
 
-        $("#divOtroIdioma").text('Percentile for staff: ' + langLevel.staff + '  ' +
+        $("#divOtroIdioma").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
             'Percentile for doctor: ' + langLevel.doctor);
 
         /* Load Doctor's friendliness level */
         //TODO: Mostrarlo como estrellas
-                
-        $("#divRatingActitud").text(evaluarRating());
+        var el = document.querySelector('#el');
 
+        //var clinicRating = evaluarRating();
+        var clinicRating = 0.8;
 
+        /*var maxRating = 3;
+
+        var callback = function(rating) { alert(rating); };
+
+        var myRating = rating(el, clinicRating, maxRating, callback);*/
+
+        $("#divRatingActitud").text(clinicRating);
+
+        $('.starbox').starbox({
+            stars: 3, //Total de estrellas a mostrar
+            buttons: 3, //Se coloca 3 para que los ratings sean 3
+            average: clinicRating, //Valor inicial
+            changeable: 'once',
+            autoUpdateAverage: true,
+            ghosting: true
+        });
+
+        /* Prescription */
+
+        var ratingPrescription = evaluarPrescripcion();
+
+        if (ratingPrescription > -1) {
+            $("#divRatingExplicacion").text(ratingPrescription + ' % Positive votes');
+        }
+        else {
+            $("#divRatingExplicacion").text('No ratings yet');
+        }
 
     }
 }
@@ -227,13 +255,40 @@ function evaluarIdioma(idioma) {
         }
     }
 
+    //TODO: Esto es una solucion temporal
+
     //Calculamos el porcentaje de cada uno
-    porcentajeTotalDoctor = (positivoDoctor+negativoDoctor)/2;
-    porcentajeTotalStaff = (positivoStaff+negativoStaff)/2;
+    if (positivoDoctor > 0 || negativoDoctor > 0) {
+        porcentajeTotalDoctor = (positivoDoctor/(positivoDoctor+negativoDoctor))*100;
+    }
+    else {
+        porcentajeTotalDoctor = -1;
+    }
+
+    if (positivoStaff > 0 || negativoStaff > 0) {
+        porcentajeTotalStaff = (positivoStaff/(positivoStaff+negativoStaff))*100;
+    }
+    else {
+        porcentajeTotalStaff = -1;
+    }
 
     return {
-        doctor : porcentajeTotalDoctor + '%',
-        staff : porcentajeTotalStaff + '%'
+        doctor : (porcentajeTotalDoctor == -1)?'No ratings yet':porcentajeTotalDoctor + ' %',
+        staff : (porcentajeTotalStaff == -1)?'No ratings yet':porcentajeTotalStaff + ' %'
+    }
+}
+
+function evaluarPrescripcion() {
+    var round = Math.round;
+
+    var positiveVotes = round(marker.foreignLanguageTreatmentExplanationTrue);
+    var negativeVotes = round(marker.foreignLanguageTreatmentExplanationFalse);
+
+    if (positiveVotes > 0 || negativeVotes > 0) {
+        return ( (positiveVotes/(positiveVotes+negativeVotes))*100 );
+    }
+    else {
+        return -1;
     }
 }
 
