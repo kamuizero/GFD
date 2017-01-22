@@ -22,21 +22,17 @@
 <body>
 
 <header onclick=" location.assign('index.html'); return false;">外国人フレンドリークリニック集</header>
-<div class="row">
 
-    <h1> Developed for the LODチャンレンジ２０１６</h1>
-
-    <h2>Clinic details</h2>
-</div>
+<h1> Clinic Details</h1>
 
 <div id="clinicInfo" class="row">
 
-    <div id="mapaClinica" class="col-4"></div>
+    <div id="mapaClinica" class="col-4 mapaReview"></div>
 
-    <div class="datosReview">
+    <div class="col-8">
         <div id="datosBasicos">
-            <div id="divNombreClinica"></div>
-            <div id="divDireccionClinica"></div>
+            <div id="divNombreClinica" class="nombreClinica"></div>
+            <div id="divDireccionClinica" class="direccionClinica"></div>
         </div>
         <br>
         <br>
@@ -63,16 +59,12 @@
 
         <div class="starbox"> </div>
 
-        <ul class="c-rating" id="el">
-        </ul>
-
         Numeric
         <div id="divRatingActitud"></div>
 
         Prescription, Indications and dosage explanation in foreign language?
         <div id="divRatingExplicacion"></div>
     </div>
-
 
 </div>
 

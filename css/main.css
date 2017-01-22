@@ -40,8 +40,6 @@ html, body {
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
-/* FIN DE DEFINICION DE COLUMNAS PARA EL GRID LAYOUT */
-
 .row::after {
     content: "";
     clear: both;
@@ -52,6 +50,8 @@ html, body {
     padding: 15px;
     /*border: 1px solid red;*/
 }
+
+/* FIN DE DEFINICION DE COLUMNAS PARA EL GRID LAYOUT */
 
 .center {
     margin: auto;
@@ -109,31 +109,32 @@ a.btn:active {
 /* FIN DE ESTILO DE BOTON */
 
 #map {
-
     height: 95%;
     width: 95%;
 }
 
-#mapaClinica {
+/* ESTILOS PARA CLINIC REVIEW */
 
+#mapaClinica {
     height: 500px;
     width: 500px;
 }
 
-/* ESTILOS PARA CLINIC REVIEW */
-
 .mapaReview {
-    width: 40%;
-    float: left;
     margin-left: 10px;
     margin-right: 10px;
-    padding:5px;
 }
 
-.datosReview {
-    width: 60%;
-    float: left;
-    padding: 10px;
+.nombreClinica {
+    font-size: 28px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+.direccionClinica {
+    font-size: 15px;
+    margin-left: 15px;
+    color: white;
 }
 
 /* FIN DE ESTILOS PARA CLINIC REVIEW */
