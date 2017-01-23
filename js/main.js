@@ -154,10 +154,54 @@ function addMarkerInfoWindow(feature, mapa) {
 
 function crearContenido(marker) {
 
+    var ingles, chino, coreano, espanol, otro;
+
+    ingles = evaluarIdioma('ingles',marker);
+    chino = evaluarIdioma('chino',marker);
+    coreano = evaluarIdioma('coreano',marker);
+    espanol = evaluarIdioma('espanol',marker);
+    otro = evaluarIdioma('otro',marker);
+
+    if ((ingles.doctor!='No ratings yet') || (ingles.staff!='No ratings yet')) {
+        ingles = '&nbsp; <img src="res/img/lang/united-states.png" class="resize"/> ';
+    }
+    else {
+        ingles = '';
+    }
+
+    if ((chino.doctor!='No ratings yet') || (chino.staff!='No ratings yet')) {
+        chino = '&nbsp; <img src="res/img/lang/china.png" class="resize"/> ';
+    }
+    else {
+        chino = '';
+    }
+
+    if ((coreano.doctor!='No ratings yet') || (coreano.staff!='No ratings yet')) {
+        coreano = '&nbsp; <img src="res/img/lang/south-korea.png" class="resize"/> ';
+    }
+    else {
+        coreano = '';
+    }
+
+    if ((espanol.doctor!='No ratings yet') || (espanol.staff!='No ratings yet')) {
+        espanol = '&nbsp; <img src="res/img/lang/spain.png" class="resize"/> ';
+    }
+    else {
+        espanol = '';
+    }
+
+    if ((otro.doctor!='No ratings yet') || (otro.staff!='No ratings yet')) {
+        otro = '&nbsp; <img src="res/img/lang/hospital.png" class="resize"/> ';
+    }
+    else {
+        otro = '';
+    }
+
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
         '<br><br>' +
         'Languages: ' +
-        //'<p><a href="clinicReview.html?clinic=' + m2 + '">'+
+        '<div> <img src="res/img/lang/japan.png" class="resize"/> ' + ingles + chino + coreano + espanol + otro +
+        '</div>' +
         '<p><a href="#" title="Click to add clinic review" onclick="reviewClinic(); return false;">'+
         'Review clinic</a></p>';
     return html;
@@ -221,6 +265,77 @@ function markerASimple(marker) {
 
     };
     return ret;
+}
+
+function evaluarIdioma(idioma, marker) {
+    var porcentajeTotalDoctor, porcentajeTotalStaff,
+        positivoDoctor, negativoDoctor,
+        positivoStaff, negativoStaff;
+
+    var round = Math.round;
+
+    switch (idioma) {
+        case 'ingles' : {
+            positivoDoctor = round(marker.doctorSpeaksEnglishTrue);
+            negativoDoctor = round(marker.doctorSpeaksEnglishFalse);
+            positivoStaff = round(marker.staffSpeaksEnglishTrue);
+            negativoStaff = round(marker.staffSpeaksEnglishFalse);
+            break;
+        }
+        case 'chino' : {
+            positivoDoctor = round(marker.doctorSpeaksChineseTrue);
+            negativoDoctor = round(marker.doctorSpeaksChineseFalse);
+            positivoStaff = round(marker.staffSpeaksChineseTrue);
+            negativoStaff = round(marker.staffSpeaksChineseFalse);
+            break;
+        }
+        case 'coreano' : {
+            positivoDoctor = round(marker.doctorSpeaksKoreanTrue);
+            negativoDoctor = round(marker.doctorSpeaksKoreanFalse);
+            positivoStaff = round(marker.staffSpeaksKoreanTrue);
+            negativoStaff = round(marker.staffSpeaksKoreanFalse);
+            break;
+        }
+        case 'espanol' : {
+            positivoDoctor = round(marker.doctorSpeaksSpanishTrue);
+            negativoDoctor = round(marker.doctorSpeaksSpanishFalse);
+            positivoStaff = round(marker.staffSpeaksSpanishTrue);
+            negativoStaff = round(marker.staffSpeaksSpanishFalse);
+            break;
+        }
+        case 'otro' : {
+            positivoDoctor = round(marker.doctorSpeaksOtherTrue);
+            negativoDoctor = round(marker.doctorSpeaksOtherFalse);
+            positivoStaff = round(marker.staffSpeaksOtherTrue);
+            negativoStaff = round(marker.staffSpeaksOtherFalse);
+            break;
+        }
+        default : {
+            return {doctor : 0, staff: 0};
+        }
+    }
+
+    //TODO: Esto es una solucion temporal
+
+    //Calculamos el porcentaje de cada uno
+    if (positivoDoctor > 0 || negativoDoctor > 0) {
+        porcentajeTotalDoctor = (positivoDoctor/(positivoDoctor+negativoDoctor))*100;
+    }
+    else {
+        porcentajeTotalDoctor = -1;
+    }
+
+    if (positivoStaff > 0 || negativoStaff > 0) {
+        porcentajeTotalStaff = (positivoStaff/(positivoStaff+negativoStaff))*100;
+    }
+    else {
+        porcentajeTotalStaff = -1;
+    }
+
+    return {
+        doctor : (porcentajeTotalDoctor == -1)?'No ratings yet':porcentajeTotalDoctor + ' %',
+        staff : (porcentajeTotalStaff == -1)?'No ratings yet':porcentajeTotalStaff + ' %'
+    }
 }
 
 function cargarClinicas(){

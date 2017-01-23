@@ -176,13 +176,7 @@ function obtenerClinica() {
         //var clinicRating = evaluarRating();
         var clinicRating = 0.8;
 
-        /*var maxRating = 3;
-
-        var callback = function(rating) { alert(rating); };
-
-        var myRating = rating(el, clinicRating, maxRating, callback);*/
-
-        $("#divRatingActitud").text(clinicRating);
+        $("#divRatingActitud").text('(' + clinicRating*100 + "% positive)");
 
         $('.starbox').starbox({
             stars: 3, //Total de estrellas a mostrar
@@ -197,7 +191,7 @@ function obtenerClinica() {
 
         var ratingPrescription = evaluarPrescripcion();
 
-        if (ratingPrescription > -1) {
+        if (ratingPrescription != -1) {
             $("#divRatingExplicacion").text(ratingPrescription + ' % Positive votes');
         }
         else {

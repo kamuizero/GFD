@@ -60,6 +60,11 @@ html, body {
     padding: 10px;
 }
 
+img.resize{
+    width: 16px; /* you can use % */
+    height: auto;
+}
+
 header{
     color: #fff;
     font-size: 32px;
@@ -86,12 +91,12 @@ a.btn {
     color: #666;
     background-color: #eee;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-size: 12px;
-    padding: 10px 30px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    padding: 10px 25px;
+    border-radius: 10px; /*Redondear bordes*/
+    -moz-border-radius: 10px; /*Redondear bordes*/
+    -webkit-border-radius: 10px; /*Redondear bordes*/
     border: 1px solid rgba(0,0,0,0.3);
     border-bottom-width: 3px;
 }
@@ -137,6 +142,19 @@ a.btn:active {
     color: white;
 }
 
+.infoIdioma {
+    margin-left: 20px;
+    color: white;
+}
+
+.infoIndicacion {
+    color: white;
+}
+
+.infoFriendliness {
+    color: white;
+}
+
 /* FIN DE ESTILOS PARA CLINIC REVIEW */
 
 #infoWindowTitle {
@@ -154,6 +172,10 @@ a.btn:active {
 
 /* Colours */
 /*.starbox .stars { background: #cccccc; }*/
+.starbox {
+    float: left;
+}
+
 .starbox .stars { background: ghostwhite; }
 /*.starbox .rated .stars { background: #dcdcdc; }*/
 .starbox .rated .stars { background: #dcdcdc; }
