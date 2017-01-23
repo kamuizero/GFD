@@ -6,6 +6,8 @@ $(document).ready(function () {
 
     //TODO: Edicion y evaluacion de la clinica y institucion de salud
 
+    //Hacemos invisible el boton
+    hideReviewButton();
     obtenerClinica();
 });
 
@@ -121,11 +123,7 @@ function initMap(feature) {
 function crearContenido(marker) {
 
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
-        '<br><br>' +
-        'Languages: ' +
-        //'<p><a href="clinicReview.html?clinic=' + m2 + '">'+
-        '<p><a href="#" title="Click to add clinic review" onclick="reviewClinic(); return false;">'+
-        'Review clinic</a></p>';
+        '<br><br>';
     return html;
 }
 
@@ -146,28 +144,31 @@ function obtenerClinica() {
 
         langLevel = evaluarIdioma('ingles');
 
-        $("#divIngles").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
-            'Percentile for doctor: ' + langLevel.doctor);
+        /*$("#inglesDoc").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
+            'Percentile for doctor: ' + langLevel.doctor);*/
+
+        $("#inglesDoc").text(langLevel.doctor);
+        $("#inglesStaff").text(langLevel.doctor);
 
         langLevel = evaluarIdioma('chino');
 
-        $("#divChino").text('Percentile for staff: ' + langLevel.staff  + ' -- ' +
-            'Percentile for doctor: ' + langLevel.doctor);
+        $("#chinoDoc").text(langLevel.doctor);
+        $("#chinoStaff").text(langLevel.doctor);
 
         langLevel = evaluarIdioma('coreano');
 
-        $("#divCoreano").text('Percentile for staff: ' + langLevel.staff + ' --  ' +
-            'Percentile for doctor: ' + langLevel.doctor);
+        $("#coreanoDoc").text(langLevel.doctor);
+        $("#coreanoStaff").text(langLevel.doctor);
 
         langLevel = evaluarIdioma('espanol');
 
-        $("#divEspanol").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
-            'Percentile for doctor: ' + langLevel.doctor);
+        $("#espanolDoc").text(langLevel.doctor);
+        $("#espanolStaff").text(langLevel.doctor);
 
         langLevel = evaluarIdioma('otro');
 
-        $("#divOtroIdioma").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
-            'Percentile for doctor: ' + langLevel.doctor);
+        $("#otroDoc").text(langLevel.doctor);
+        $("#otroStaff").text(langLevel.doctor);
 
         /* Load Doctor's friendliness level */
         //TODO: Mostrarlo como estrellas
@@ -298,4 +299,55 @@ function evaluarRating() {
     var suma = L1+L2+L3;
 
     return (suma==0)?0:( ((3*L3) + (2*L2) + (L1))/(suma) );
+}
+
+function grupoYaEstaClickeado(element) {
+    var res = false;
+
+    return res;
+}
+
+function hover(element) {
+    if (grupoYaEstaClickeado()) {
+
+    }
+    else{
+        element.setAttribute('src', 'res/img/like-color.png');
+    }
+}
+
+function unhover(element) {
+    element.setAttribute('src', 'res/img/like-white.png');
+}
+
+function clickThumb(element) {
+    //alert("El usuario hizo click en el elemento: " + element.getAttribute('id') + ' - ' + element.getAttribute('name') +
+    //       ' valor: ' + element.getAttribute('value') + ' Checked: ' + element.checked);
+
+    //TODO: Hacer que cuando ya esta clickeado y le vuelve a dar, se deschequee, o simplemente poner un boton de CLEAR
+}
+
+function showReviewButton() {
+    document.getElementById("botonReview").style.display = "inline";
+}
+
+function hideReviewButton(){
+    document.getElementById("botonReview").style.display = "none";
+}
+
+function reviewClinic() {
+
+    //Debemos tomar todos los cambios nuevos
+
+    //Primero evaluacion de idiomas
+
+
+    //Nivel de amistosidad del doctor
+
+
+    //Voto de indicaciones
+
+
+    //Persistir los datos
+
 }

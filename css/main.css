@@ -121,8 +121,8 @@ a.btn:active {
 /* ESTILOS PARA CLINIC REVIEW */
 
 #mapaClinica {
-    height: 500px;
-    width: 500px;
+    height: 600px;
+    width: 600px;
 }
 
 .mapaReview {
@@ -131,13 +131,14 @@ a.btn:active {
 }
 
 .nombreClinica {
-    font-size: 28px;
-    font-weight: bolder;
-    margin-bottom: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: -15px;
+    margin-bottom: 10px;
 }
 
 .direccionClinica {
-    font-size: 15px;
+    font-size: 16px;
     margin-left: 15px;
     color: white;
 }
@@ -155,7 +156,84 @@ a.btn:active {
     color: white;
 }
 
+.imagenBanderaReview {
+    float: left;
+    width: 59px; /* you can use % */
+    height: auto;
+    margin-right: 10px;
+}
+
+.labelIdioma {
+    font-weight: bold;
+}
+
+.thumbUp {
+    width: 18px; /* you can use % */
+    height: auto;
+}
+
+.thumbDown {
+    width: 18px; /* you can use % */
+    height: auto;
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+
 /* FIN DE ESTILOS PARA CLINIC REVIEW */
+
+/* ESTILOS PARA PULGARES */
+
+.cc-selector input{
+    margin:0;padding:0;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+}
+
+.tUp {
+    width: 18px; /* you can use % */
+    height: auto;
+    background-image:url(../res/img/like-color.png);
+}
+.tDown {
+    background-image:url(../res/img/like-color.png);
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+.cc-selector-2 input:active +.pulgar-cc, .cc-selector input:active +.pulgar-cc{opacity: 0.9;}
+.cc-selector-2 input:checked +.pulgar-cc, .cc-selector input:checked +.pulgar-cc{
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+
+.pulgar-cc{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:18px;
+    height:18px;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+    filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+.pulgar-cc:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+    -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+    filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+/* FIN DE ESTILOS PARA PULGARES */
 
 #infoWindowTitle {
     text-align: center;
