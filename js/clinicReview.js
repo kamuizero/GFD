@@ -4,9 +4,6 @@
 
 $(document).ready(function () {
 
-    //TODO: Edicion y evaluacion de la clinica y institucion de salud
-
-    //Hacemos invisible el boton
     hideButton("botonReview");
     hideButton("botonClear");
     obtenerClinica();
@@ -16,6 +13,7 @@ $(document).ready(function () {
 
 var activeInfoWindow;
 var marker;
+var ratingOriginal;
 var ratingUsuarioInglesDoc, ratingUsuarioChinoDoc, ratingUsuarioEspanolDoc, ratingUsuarioCoreanoDoc, ratingUsuarioOtroDoc,
     ratingUsuarioInglesStaff, ratingUsuarioChinoStaff, ratingUsuarioEspanolStaff, ratingUsuarioCoreanoStaff, ratingUsuarioOtroStaff,
     ratingUsuarioFL, ratingUsuarioIndicaciones;
@@ -138,7 +136,7 @@ function obtenerClinica() {
 
         var langLevel;
 
-        initMap(feature);
+        initMap(feature); //Mostramos el mapa
 
         $("#divNombreClinica").text(feature.title);
 
@@ -147,9 +145,6 @@ function obtenerClinica() {
         /* Load languages ratings */
 
         langLevel = evaluarIdioma('ingles');
-
-        /*$("#inglesDoc").text('Percentile for staff: ' + langLevel.staff + ' -- ' +
-            'Percentile for doctor: ' + langLevel.doctor);*/
 
         $("#inglesDoc").text(langLevel.doctor);
         $("#inglesStaff").text(langLevel.doctor);
@@ -175,18 +170,17 @@ function obtenerClinica() {
         $("#otroStaff").text(langLevel.doctor);
 
         /* Load Doctor's friendliness level */
-        //TODO: Mostrarlo como estrellas
-        var el = document.querySelector('#el');
 
-        //var clinicRating = evaluarRating();
-        var clinicRating = 0.8;
+        ratingOriginal = evaluarRating();
+        ratingOriginal = 0.8;
 
-        $("#divRatingActitud").text('(' + clinicRating*100 + "% positive)");
+        $("#divRatingActitud").text('(' + ratingOriginal*100 + "% positive)");
+
 
         $('.starbox').starbox({
             stars: 3, //Total de estrellas a mostrar
             buttons: 3, //Se coloca 3 para que los ratings sean 3
-            average: clinicRating, //Valor inicial
+            average: ratingOriginal, //Valor inicial
             changeable: 'once',
             autoUpdateAverage: true,
             ghosting: true
@@ -207,16 +201,9 @@ function obtenerClinica() {
                     break;
             }
 
-            alert('Estrella Clickeada, valor a evaluar es: ' + voto);
             ratingUsuarioFL = voto;
             verificarVisibilidad();
-
-            /*jQuery.getJSON('/my/action', {rating: value}, function(data) {
-                if(!data.error) {
-                    element.starbox('setOption', 'average', data.result);
-                }
-            });*/
-        });;
+        });
 
         /* Prescription */
 
@@ -360,14 +347,11 @@ function unhover(element) {
 }
 
 function clickThumb(element) {
-    //alert("El usuario hizo click en el elemento: " + element.getAttribute('id') + ' - ' + element.getAttribute('name') +
-    //       ' valor: ' + element.getAttribute('value') + ' Checked: ' + element.checked);
 
-    //TODO: Hacer que cuando ya esta clickeado y le vuelve a dar, se deschequee, o simplemente poner un boton de CLEAR
-    var idioma = element.getAttribute('name'); //Obtenemos el idioma a donde le dio click
+    var nombre = element.getAttribute('name'); //Obtenemos el idioma a donde le dio click
     var voto = element.getAttribute('value');
 
-    switch (idioma) {
+    switch (nombre) {
             case 'votoInglesDoc' :
                 if ((ratingUsuarioInglesDoc!=null) && (ratingUsuarioInglesDoc == voto)) { //Ya esta clickeado
                     element.checked = false;
@@ -458,6 +442,15 @@ function clickThumb(element) {
                     ratingUsuarioOtroStaff = voto;
                 }
                 break;
+            case 'votoIndicacion' :
+                if ((ratingUsuarioIndicaciones !=null) && (ratingUsuarioIndicaciones == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioIndicaciones = null;
+                }
+                else {
+                    ratingUsuarioIndicaciones = voto;
+                }
+                break;
             default: break;
     }
 
@@ -473,19 +466,105 @@ function hideButton(boton){
     document.getElementById(boton).style.display = "none";
 }
 
+function resetStars() {
+
+    var starB = $('.starbox');
+
+    ratingUsuarioFL = null;
+    starB.starbox('destroy', null);
+
+    //Regeneramos el rating
+    starB.starbox({
+        stars: 3, //Total de estrellas a mostrar
+        buttons: 3, //Se coloca 3 para que los ratings sean 3
+        average: ratingOriginal, //Valor inicial
+        changeable: 'once',
+        autoUpdateAverage: true,
+        ghosting: true
+    });
+
+}
+
 function reviewClinic() {
 
     //Debemos tomar todos los cambios nuevos
 
     //Primero evaluacion de idiomas
+    ratingUsuarioInglesDoc = (ratingUsuarioInglesDoc=='up')?1:0;
+    ratingUsuarioInglesStaff = (ratingUsuarioInglesStaff=='up')?1:0;
 
+    ratingUsuarioChinoDoc = (ratingUsuarioChinoDoc=='up')?1:0;
+    ratingUsuarioChinoStaff = (ratingUsuarioChinoStaff=='up')?1:0;
+
+    ratingUsuarioCoreanoDoc = (ratingUsuarioCoreanoDoc=='up')?1:0;
+    ratingUsuarioCoreanoStaff = (ratingUsuarioCoreanoStaff=='up')?1:0;
+
+    ratingUsuarioEspanolDoc = (ratingUsuarioEspanolDoc=='up')?1:0;
+    ratingUsuarioEspanolStaff = (ratingUsuarioEspanolStaff=='up')?1:0;
+
+    ratingUsuarioOtroDoc = (ratingUsuarioOtroDoc=='up')?1:0;
+    ratingUsuarioOtroStaff = (ratingUsuarioOtroStaff=='up')?1:0;
 
     //Nivel de amistosidad del doctor
+    if (ratingUsuarioFL==null) { //No hizo click en la estrella
+        ratingUsuarioFL = 0;
+    }
 
+    alert('Nivel de estrella clickeada es ' + ratingUsuarioFL);
 
     //Voto de indicaciones
+    ratingUsuarioIndicaciones = (ratingUsuarioIndicaciones=='up')?1:0;
 
+    //TODO: Persistir los datos
 
-    //Persistir los datos
+}
 
+function resetThumbs() {
+
+    ratingUsuarioInglesDoc = ratingUsuarioChinoDoc = ratingUsuarioEspanolDoc = ratingUsuarioCoreanoDoc = ratingUsuarioOtroDoc =
+        ratingUsuarioInglesStaff = ratingUsuarioChinoStaff = ratingUsuarioEspanolStaff = ratingUsuarioCoreanoStaff = ratingUsuarioOtroStaff =
+            ratingUsuarioIndicaciones = null;
+
+    //Idiomas
+    document.getElementsByName("votoInglesDoc")[0].checked = false;
+    document.getElementsByName("votoInglesDoc")[1].checked = false;
+
+    document.getElementsByName("votoInglesStaff")[0].checked = false;
+    document.getElementsByName("votoInglesStaff")[1].checked = false;
+
+    document.getElementsByName("votoChinoDoc")[0].checked = false;
+    document.getElementsByName("votoChinoDoc")[1].checked = false;
+
+    document.getElementsByName("votoChinoStaff")[0].checked = false;
+    document.getElementsByName("votoChinoStaff")[1].checked = false;
+
+    document.getElementsByName("votoCoreanoDoc")[0].checked = false;
+    document.getElementsByName("votoCoreanoDoc")[1].checked = false;
+
+    document.getElementsByName("votoCoreanoStaff")[0].checked = false;
+    document.getElementsByName("votoCoreanoStaff")[1].checked = false;
+
+    document.getElementsByName("votoEspanolDoc")[0].checked = false;
+    document.getElementsByName("votoEspanolDoc")[1].checked = false;
+
+    document.getElementsByName("votoEspanolStaff")[0].checked = false;
+    document.getElementsByName("votoEspanolStaff")[1].checked = false;
+
+    document.getElementsByName("votoOtroDoc")[0].checked = false;
+    document.getElementsByName("votoOtroDoc")[1].checked = false;
+
+    document.getElementsByName("votoOtroStaff")[0].checked = false;
+    document.getElementsByName("votoOtroStaff")[1].checked = false;
+
+    //Indicaciones
+
+    document.getElementsByName("votoIndicacion")[0].checked = false;
+    document.getElementsByName("votoIndicacion")[1].checked = false;
+
+}
+
+function clearInput() {
+    resetThumbs(); //Resetear los pulgares
+    resetStars(); //Resetear las estrellas
+    verificarVisibilidad();
 }

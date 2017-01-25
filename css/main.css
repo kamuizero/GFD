@@ -93,6 +93,7 @@ footer{
 
 a.btn {
     display: inline-block;
+    cursor:pointer;
     color: #666;
     background-color: #eee;
     text-transform: uppercase;
@@ -257,6 +258,7 @@ a.btn:active {
 /*.starbox .stars { background: #cccccc; }*/
 .starbox {
     float: left;
+    cursor:pointer;
 }
 
 .starbox .stars { background: ghostwhite; }

@@ -3,13 +3,6 @@
  */
 $(document).ready(function () {
 
-    //El codigo contenido aqui cargara despues de finalizar todas las demas funciones
-
-    //TODOLISTO: Primero, obtener el listado de clinicas del Open Data
-    //TODOLISTO: Segundo, cargar una cierta cantidad de esas clinicas como marcadores en el Mapa, limitado por el zoom y coords
-    //TODOLISTA: Tercero, cuando se haga click, mostrar la informacion y poner el link a una pagina de edicion de ese punto en el mapa
-    //TODO: Cuarto, pagina de edicion y evaluacion de la clinica y institucion de salud
-
 });
 
 //////////////////////////////
