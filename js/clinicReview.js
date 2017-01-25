@@ -7,7 +7,8 @@ $(document).ready(function () {
     //TODO: Edicion y evaluacion de la clinica y institucion de salud
 
     //Hacemos invisible el boton
-    hideReviewButton();
+    hideButton("botonReview");
+    hideButton("botonClear");
     obtenerClinica();
 });
 
@@ -15,6 +16,9 @@ $(document).ready(function () {
 
 var activeInfoWindow;
 var marker;
+var ratingUsuarioInglesDoc, ratingUsuarioChinoDoc, ratingUsuarioEspanolDoc, ratingUsuarioCoreanoDoc, ratingUsuarioOtroDoc,
+    ratingUsuarioInglesStaff, ratingUsuarioChinoStaff, ratingUsuarioEspanolStaff, ratingUsuarioCoreanoStaff, ratingUsuarioOtroStaff,
+    ratingUsuarioFL, ratingUsuarioIndicaciones;
 
 function initMap(feature) {
 
@@ -128,7 +132,7 @@ function crearContenido(marker) {
 }
 
 function obtenerClinica() {
-    feature = JSON.parse(localStorage.getItem('clinica'));
+    var feature = JSON.parse(localStorage.getItem('clinica'));
 
     if (feature != null) {
 
@@ -186,7 +190,33 @@ function obtenerClinica() {
             changeable: 'once',
             autoUpdateAverage: true,
             ghosting: true
-        });
+        }).bind('starbox-value-changed', function(event, value) {
+            var voto = value.toFixed(2);
+            switch (voto) {
+                case ("0.33") :
+                    voto = 1;
+                    break;
+                case ("0.67") :
+                    voto = 2;
+                    break;
+                case ("1.00") :
+                    voto = 3;
+                    break;
+                default:
+                    voto = 1;
+                    break;
+            }
+
+            alert('Estrella Clickeada, valor a evaluar es: ' + voto);
+            ratingUsuarioFL = voto;
+            verificarVisibilidad();
+
+            /*jQuery.getJSON('/my/action', {rating: value}, function(data) {
+                if(!data.error) {
+                    element.starbox('setOption', 'average', data.result);
+                }
+            });*/
+        });;
 
         /* Prescription */
 
@@ -301,10 +331,19 @@ function evaluarRating() {
     return (suma==0)?0:( ((3*L3) + (2*L2) + (L1))/(suma) );
 }
 
-function grupoYaEstaClickeado(element) {
-    var res = false;
-
-    return res;
+function verificarVisibilidad() {
+    if (ratingUsuarioInglesDoc==null && ratingUsuarioChinoDoc==null && ratingUsuarioEspanolDoc==null &&
+        ratingUsuarioCoreanoDoc==null && ratingUsuarioOtroDoc==null && ratingUsuarioInglesStaff==null &&
+        ratingUsuarioChinoStaff==null && ratingUsuarioEspanolStaff==null && ratingUsuarioCoreanoStaff==null &&
+        ratingUsuarioOtroStaff==null && ratingUsuarioFL==null && ratingUsuarioIndicaciones== null &&
+        ratingUsuarioFL == null) {
+        hideButton('botonReview');
+        hideButton('botonClear');
+    }
+    else{
+        showButton('botonReview');
+        showButton('botonClear');
+    }
 }
 
 function hover(element) {
@@ -325,14 +364,113 @@ function clickThumb(element) {
     //       ' valor: ' + element.getAttribute('value') + ' Checked: ' + element.checked);
 
     //TODO: Hacer que cuando ya esta clickeado y le vuelve a dar, se deschequee, o simplemente poner un boton de CLEAR
+    var idioma = element.getAttribute('name'); //Obtenemos el idioma a donde le dio click
+    var voto = element.getAttribute('value');
+
+    switch (idioma) {
+            case 'votoInglesDoc' :
+                if ((ratingUsuarioInglesDoc!=null) && (ratingUsuarioInglesDoc == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioInglesDoc = null;
+                }
+                else {
+                    ratingUsuarioInglesDoc = voto;
+                }
+                break;
+            case 'votoInglesStaff' :
+                if ((ratingUsuarioInglesStaff!=null) && (ratingUsuarioInglesStaff == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioInglesStaff = null;
+                }
+                else {
+                    ratingUsuarioInglesStaff = voto;
+                }
+                break;
+            case 'votoChinoDoc' :
+                if ((ratingUsuarioChinoDoc!=null) && (ratingUsuarioChinoDoc == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioChinoDoc = null;
+                }
+                else {
+                    ratingUsuarioChinoDoc  = voto;
+                }
+                break;
+            case 'votoChinoStaff' :
+                if ((ratingUsuarioChinoStaff !=null) && (ratingUsuarioChinoStaff == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioChinoStaff = null;
+                }
+                else {
+                    ratingUsuarioChinoStaff = voto;
+                }
+                break;
+            case 'votoCoreanoDoc' :
+                if ((ratingUsuarioCoreanoDoc !=null) && (ratingUsuarioCoreanoDoc == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioCoreanoDoc = null;
+                }
+                else {
+                    ratingUsuarioCoreanoDoc = voto;
+                }
+                break;
+            case 'votoCoreanoStaff' :
+                if ((ratingUsuarioCoreanoStaff !=null) && (ratingUsuarioCoreanoStaff == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioCoreanoStaff = null;
+                }
+                else {
+                    ratingUsuarioCoreanoStaff = voto;
+                }
+                break;
+            case 'votoEspanolDoc' :
+                if ((ratingUsuarioEspanolDoc !=null) && (ratingUsuarioEspanolDoc == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioEspanolDoc = null;
+                }
+                else {
+                    ratingUsuarioEspanolDoc = voto;
+                }
+                break;
+            case 'votoEspanolStaff' :
+                if ((ratingUsuarioEspanolStaff !=null) && (ratingUsuarioEspanolStaff == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioEspanolStaff = null;
+                }
+                else {
+                    ratingUsuarioEspanolStaff = voto;
+                }
+                break;
+            case 'votoOtroDoc' :
+                if ((ratingUsuarioOtroDoc !=null) && (ratingUsuarioOtroDoc == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioOtroDoc = null;
+                }
+                else {
+                    ratingUsuarioOtroDoc = voto;
+                }
+                break;
+            case 'votoOtroStaff' :
+                if ((ratingUsuarioOtroStaff !=null) && (ratingUsuarioOtroStaff == voto)) { //Ya esta clickeado
+                    element.checked = false;
+                    ratingUsuarioOtroStaff = null;
+                }
+                else {
+                    ratingUsuarioOtroStaff = voto;
+                }
+                break;
+            default: break;
+    }
+
+    //Verificamos si hacer visible el boton o no
+    verificarVisibilidad();
 }
 
-function showReviewButton() {
-    document.getElementById("botonReview").style.display = "inline";
+function showButton(boton) {
+    document.getElementById(boton).style.display = "inline";
 }
 
-function hideReviewButton(){
-    document.getElementById("botonReview").style.display = "none";
+function hideButton(boton){
+    document.getElementById(boton).style.display = "none";
 }
 
 function reviewClinic() {

@@ -197,6 +197,8 @@ function crearContenido(marker) {
         otro = '';
     }
 
+    //TODO: Mejorar el formato del infowindow http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html
+
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
         '<br><br>' +
         'Languages: ' +

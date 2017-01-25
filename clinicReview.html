@@ -17,8 +17,6 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFt6MSFMohozFOuPIVrs_1hZFwyqpyPTo"></script>
     <script src="js/jstarbox.js"></script>
-
-
 </head>
 <body>
 
@@ -28,9 +26,13 @@
 
 <div id="clinicInfo" class="row">
 
+    <div id="rI" class="col-2">
+
+    </div>
+
     <div id="mapaClinica" class="col-4 mapaReview"></div>
 
-    <div class="col-8">
+    <div class="col-4">
         <div id="datosBasicos">
             <div id="divNombreClinica" class="nombreClinica"></div>
             <div id="divDireccionClinica" class="direccionClinica"></div>
@@ -171,8 +173,18 @@
         </div> -->
         <br>
         <br>
-        <a id="botonReview" class="btn">Rate Clinic</a>
+        <br>
+        <div id="botones">
+            <a id="botonBack" class="btn" onclick="history.back(-1);">Back</a>
+            &nbsp;
+            <a id="botonReview" class="btn">Rate Clinic</a>
+            &nbsp;
+            <a id="botonClear" class="btn">Clear</a>
+        </div>
+
     </div>
+
+    <div id="rd" class="col-2"></div>
 
 </div>
 
