@@ -333,19 +333,6 @@ function verificarVisibilidad() {
     }
 }
 
-function hover(element) {
-    if (grupoYaEstaClickeado()) {
-
-    }
-    else{
-        element.setAttribute('src', 'res/img/like-color.png');
-    }
-}
-
-function unhover(element) {
-    element.setAttribute('src', 'res/img/like-white.png');
-}
-
 function clickThumb(element) {
 
     var nombre = element.getAttribute('name'); //Obtenemos el idioma a donde le dio click
@@ -515,8 +502,30 @@ function reviewClinic() {
     //Voto de indicaciones
     ratingUsuarioIndicaciones = (ratingUsuarioIndicaciones=='up')?1:0;
 
+    var voto = {
+        id : marker.id,
+        inglesDoc : ratingUsuarioInglesDoc,
+        inglesStaff : ratingUsuarioInglesStaff,
+        chinoDoc : ratingUsuarioChinoDoc,
+        chinoStaff : ratingUsuarioChinoStaff,
+        coreanoDoc : ratingUsuarioCoreanoDoc,
+        coreanoStaff : ratingUsuarioCoreanoStaff,
+        espanolDoc : ratingUsuarioEspanolDoc,
+        espanolStaff : ratingUsuarioEspanolStaff,
+        otroDoc : ratingUsuarioOtroDoc,
+        otroStaff : ratingUsuarioOtroStaff,
+        nivelDoc : ratingUsuarioFL,
+        indicaciones : ratingUsuarioIndicaciones
+    }
+
     //TODO: Persistir los datos
 
+    if (evaluarClinica(voto)) {
+        alert('Se registro el voto');
+    }
+    else {
+        alert('No se pudo registrar el voto');
+    }
 }
 
 function resetThumbs() {
