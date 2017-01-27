@@ -497,8 +497,6 @@ function reviewClinic() {
         ratingUsuarioFL = 0;
     }
 
-    alert('Nivel de estrella clickeada es ' + ratingUsuarioFL);
-
     //Voto de indicaciones
     ratingUsuarioIndicaciones = (ratingUsuarioIndicaciones=='up')?1:0;
 
