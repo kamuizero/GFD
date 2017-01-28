@@ -32,22 +32,30 @@ function sparqlRead(query){
     });
 }
 
-function updateInstance(){
+function updateInstance(datos){
 
     var sujeto, predicado, objeto;
 
     //sujeto debe ser el ID de la clinica
+    sujeto = "http://linkdata.org/resource/rdf1s4853i#" + datos.id;
+
+    for (var i = 0; i < datos.length; i++) {
+        predicado = "http://linkdata.org/property/rdf1s4853i#" + datos.atributo;
+        objeto = datos.valor;
+
+        rdfmgr.updateInstance({
+            success:alert('Registro actualizado'),
+            projectID:"APT",
+            error:getErrorMsg,
+            subject: sujeto,
+            predicate: predicado,
+            object: objeto
+        });
+    }
+
     //predicado = el atributo que vamos a incrementar o valorar.
     //objeto = objeto + 1;
 
-    rdfmgr.updateInstance({
-        success:alert('Registro actualizado'),
-        projectID:"APT",
-        error:getErrorMsg,
-        subject: $("#sub").val(),
-        predicate: $("#pre").val(),
-        object: $("#obj").val()
-    });
 }
 
 //SparqlEPCUから受け取ったJSONデータをイテレータを使用して取り出し表作成
@@ -241,8 +249,12 @@ function maketable(re){
 
     }
 
-    //$("#disp").append(str);
+    if (hayElemento) {//Verificamos el ultimo elemento
+        clinicas.push(clinica);
+    }
+
     var a = 0;
+    return clinicas;
 }
 
 function getErrorMsg(eType,eMsg,eInfo){
