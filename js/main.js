@@ -2,7 +2,11 @@
  * Created by Aurelio on 30/12/2016.
  */
 $(document).ready(function () {
+    initMap();
+});
 
+$.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
+    alert("CARGO RDFMGR");
 });
 
 //////////////////////////////
@@ -33,6 +37,7 @@ var activeMarker;
 //Funcion que inicializa el mapa de Google Maps
 function initMap() {
 
+    alert("initmap!!");
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         //center: uluru,
@@ -46,7 +51,8 @@ function initMap() {
         streetViewControl: false
     });
 
-    cargarClinicas();
+    //cargarClinicas();
+    llamarClinicasRDF();
 }
 
 function addMarkerInfoWindow(feature, mapa) {
@@ -58,10 +64,12 @@ function addMarkerInfoWindow(feature, mapa) {
 
     var marker = new google.maps.Marker({
         id: feature.id,
-        description:feature.description,
+        //description:feature.description, NORMAL
+        description:feature.address, //RDF
         position: feature.position,
         map: mapa,
-        title: feature.title,
+        //title: feature.title, NORMAL
+        title: feature.name, //RDF
         type: feature.type,
         icon: image,
 
@@ -101,12 +109,12 @@ function addMarkerInfoWindow(feature, mapa) {
 
         /* Evaluacion */
 
-        friendlyL1 : feature.friendlyL1, //1 Estrella
-        friendlyL2 : feature.friendlyL2, //2 Estrellas
-        friendlyL3 : feature.friendlyL3 , //3 Estrellas
+        friendlyL1 : feature.FriendlyL1, //1 Estrella
+        friendlyL2 : feature.FriendlyL2, //2 Estrellas
+        friendlyL3 : feature.FriendlyL3 , //3 Estrellas
 
-        foreignLanguageTreatmentExplanationTrue: feature.foreignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
-        foreignLanguageTreatmentExplanationFalse: feature.foreignLanguageTreatmentExplanationFalse
+        foreignLanguageTreatmentExplanationTrue: feature.ForeignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+        foreignLanguageTreatmentExplanationFalse: feature.ForeignLanguageTreatmentExplanationFalse
     });
 
     var infowindow = new google.maps.InfoWindow();
@@ -333,6 +341,17 @@ function evaluarIdioma(idioma, marker) {
     }
 }
 
+function llamarClinicasRDF() {
+    leerData();
+}
+
+function cargarClinicasRDF(clinicas) {
+    alert("Cargar clinicas RDF " + clinicas.length + " clinicas");
+    for (var k = 0, clinicaP; clinicaP = clinicas[k]; k++) {
+        addMarkerInfoWindow(clinicaP,map);
+    }
+}
+
 function cargarClinicas(){
 
     var this_data_list = [];
@@ -394,8 +413,8 @@ function cargarClinicas(){
                     position: new google.maps.LatLng(Number(this_data_list[j][3]), Number(this_data_list[j][4])),
                     type: 'health',
                     id: this_data_list[j][0], //ID dentro de la lista de clinicas
-                    title: this_data_list[j][1], //Nombre
-                    description: this_data_list[j][2], //Direccion
+                    name: this_data_list[j][1], //Nombre
+                    address: this_data_list[j][2], //Direccion
 
                     /* Doctor */
 
@@ -433,12 +452,12 @@ function cargarClinicas(){
 
                     /* Evaluacion */
 
-                    friendlyL1:this_data_list[j][25], //1 Estrella
-                    friendlyL2:this_data_list[j][26], //2 Estrellas
-                    friendlyL3:this_data_list[j][27], //3 Estrellas
+                    FriendlyL1:this_data_list[j][25], //1 Estrella
+                    FriendlyL2:this_data_list[j][26], //2 Estrellas
+                    FriendlyL3:this_data_list[j][27], //3 Estrellas
 
-                    foreignLanguageTreatmentExplanationTrue: this_data_list[j][28], //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
-                    foreignLanguageTreatmentExplanationFalse: this_data_list[j][29] //Ofrecen posologia o indicaciones en idioma extranjero - Votos negativos
+                    ForeignLanguageTreatmentExplanationTrue: this_data_list[j][28], //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+                    ForeignLanguageTreatmentExplanationFalse: this_data_list[j][29] //Ofrecen posologia o indicaciones en idioma extranjero - Votos negativos
                 };
 
                 //Agregamos al arreglo de Marcadores

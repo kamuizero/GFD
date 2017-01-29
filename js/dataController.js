@@ -9,13 +9,14 @@ $(document).ready(function () {
 
 });
 
-$.getScript("js/sparqlEPCUDAO.js", function() {
-    alert("Cargado el objeto de acceso a Datos de SPARQLEPCU.");
-});
+$.getScript("js/sparqlEPCUDAO.js");
 
 function leerData() {
     sparqlRead();
-    return true;
+}
+
+function terminoCreacionObjeto(clinicas) {
+    alert("Se leyeron " + clinicas.length + " clinicas");
 }
 
 function evaluarClinica(voto) {
@@ -23,9 +24,13 @@ function evaluarClinica(voto) {
     //Sumamos a los valores existentes
     var resultado = false;
 
+    //alert("Antes de LEER DATA");
+    //var cantidad = leerData();
     leerData();
 
-    alert('el voto es para la clinica con ID numero ' + voto.id);
+    //alert("DESPUES DE LEER DATA cantidad es " + cantidad.length);
+
+    //alert('el voto es para la clinica con ID numero ' + voto.id);
 
     return resultado;
 }

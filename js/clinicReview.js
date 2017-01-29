@@ -18,6 +18,10 @@ var ratingUsuarioInglesDoc, ratingUsuarioChinoDoc, ratingUsuarioEspanolDoc, rati
     ratingUsuarioInglesStaff, ratingUsuarioChinoStaff, ratingUsuarioEspanolStaff, ratingUsuarioCoreanoStaff, ratingUsuarioOtroStaff,
     ratingUsuarioFL, ratingUsuarioIndicaciones;
 
+function prueba() {
+    alert('Prueba!');
+}
+
 function initMap(feature) {
 
     var posicionInicial = feature.position;
@@ -518,12 +522,14 @@ function reviewClinic() {
 
     //TODO: Persistir los datos
 
-    if (evaluarClinica(voto)) {
-        alert('Se registro el voto');
-    }
-    else {
-        alert('No se pudo registrar el voto');
-    }
+    //Enviar los datos a procesar - La respuesta se procesa en otro metodo
+
+    evaluarClinica(voto);
+}
+
+//Esta funcion recibe los datos desde el procedimiento de SparqlEPCUDAO
+function respuestaEvaluarClinica(resultado){
+
 }
 
 function resetThumbs() {

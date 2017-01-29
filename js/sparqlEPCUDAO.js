@@ -2,6 +2,8 @@
  * Created by Aurelio on 2017/01/26.
  */
 
+//$.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js");
+
 $.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
     alert("Script loaded but not necessarily executed.");
 });
@@ -9,9 +11,9 @@ $.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", fun
 var rdfmgr = new RDFmgr();
 var projectURL = "http://lodcu.cs.chubu.ac.jp/SparqlEPCU/project.jsp?projectID=APT";
 var projectID = "APT";
+var clinicasB;
 
 function sparqlRead(query){
-    var stext = $("#sparql").val();
 
     rdfmgr = new RDFmgr("APT");
 
@@ -19,11 +21,11 @@ function sparqlRead(query){
 
     //executeSparql()でSPARQL検索を行う
 
-    if ((query==null) || (query=="")) {
+    if ((query==null) || (query=="")) { //Cargar todas las clinicas
         query = "select * where{?s ?p ?o}";
     }
 
-    rdfmgr.executeSparql({
+    rdfmgr.executeSparql( {
         sparql: query,
         inference: false,
         projectID:projectID,
@@ -60,17 +62,15 @@ function updateInstance(datos){
 
 //SparqlEPCUから受け取ったJSONデータをイテレータを使用して取り出し表作成
 function maketable(re){
-    //$("#disp").empty();
     var clinicas = [];
     var lat, long;
 
-    var str = new String("<tr>");
+    /*var str = new String("<tr>");
 
     for(var i=0; i<re.getKeyListLength();i++){
         str += "<td>"+re.getKey(i)+"</td>";
     }
-    str += "</tr>";
-
+    str += "</tr>";*/
 
     //Aqui generamos los objetos particulares con cada uno de sus atributos
     while(re.next()) {
@@ -79,7 +79,6 @@ function maketable(re){
         var hayElemento = false;
 
         for(var i=0; i < re.getLength();i++) {
-            str += "<td><pre>"+re.getValue(i)+"</pre></td>";
 
             var elementos = re.getValue(i).split("#");
 
@@ -214,27 +213,28 @@ function maketable(re){
                 }
                 else { //Es algunas de las coordenadas probablemente, o el valor como tal
                     if (clinica == null) {
-                        clinica = {
-                            id: id
+                        clinica = { //Inicializamos la clinica
+                            id: id,
+                            type: "health"
                         };
-                    }
-                    else if (elementos[0] == "geo:lat") {
-                        atributo = "lat";
                     }
                     else if (atributo == "lat") {
                         lat = elementos[0];
                     }
-                    else if (elementos[0] =="geo:long") {
-                        atributo = "long";
-                    }
                     else if (atributo == "long"){
                         long = elementos[0];
                     }
+                    else if (elementos[0] == "geo:lat") {
+                        atributo = "lat";
+                    }
+                    else if (elementos[0] =="geo:long") {
+                        atributo = "long";
+                    }
+
                     valor = elementos[0]; //Guardamos el valor
                 }
             }
         }
-        str += "</tr>";
 
         //Ya aqui hay un atributo listo
         if (hayElemento){
@@ -253,8 +253,8 @@ function maketable(re){
         clinicas.push(clinica);
     }
 
-    var a = 0;
-    return clinicas;
+    //terminoCreacionObjeto(clinicas);
+    cargarClinicasRDF(clinicas);
 }
 
 function getErrorMsg(eType,eMsg,eInfo){
