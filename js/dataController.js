@@ -19,20 +19,8 @@ function terminoCreacionObjeto(clinicas) {
     alert("Se leyeron " + clinicas.length + " clinicas");
 }
 
-function evaluarClinica(voto) {
-
-    //Sumamos a los valores existentes
-    var resultado = false;
-
-    //alert("Antes de LEER DATA");
-    //var cantidad = leerData();
-    leerData();
-
-    //alert("DESPUES DE LEER DATA cantidad es " + cantidad.length);
-
-    //alert('el voto es para la clinica con ID numero ' + voto.id);
-
-    return resultado;
+function evaluarClinica(actualizacion) {
+    updateInstance(actualizacion);
 }
 
 function registrarClinica(clinica){

@@ -6,7 +6,6 @@ $(document).ready(function () {
 });
 
 $.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
-    alert("CARGO RDFMGR");
 });
 
 //////////////////////////////
@@ -37,7 +36,6 @@ var activeMarker;
 //Funcion que inicializa el mapa de Google Maps
 function initMap() {
 
-    alert("initmap!!");
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         //center: uluru,
@@ -163,35 +161,40 @@ function crearContenido(marker) {
     espanol = evaluarIdioma('espanol',marker);
     otro = evaluarIdioma('otro',marker);
 
-    if ((ingles.doctor!='No ratings yet') || (ingles.staff!='No ratings yet')) {
+    if ( ((ingles.doctor!='0 %') && (ingles.doctor!='No ratings yet'))  ||
+        ( (ingles.staff!='No ratings yet') && (ingles.staff!='0 %')) ) {
         ingles = '&nbsp; <img src="res/img/lang/united-states.png" class="resize"/> ';
     }
     else {
         ingles = '';
     }
 
-    if ((chino.doctor!='No ratings yet') || (chino.staff!='No ratings yet')) {
+    if ( ((chino.doctor!='0 %') && (chino.doctor!='No ratings yet'))  ||
+        ( (chino.staff!='No ratings yet') && (chino.staff!='0 %')) ) {
         chino = '&nbsp; <img src="res/img/lang/china.png" class="resize"/> ';
     }
     else {
         chino = '';
     }
 
-    if ((coreano.doctor!='No ratings yet') || (coreano.staff!='No ratings yet')) {
+    if ( ((coreano.doctor!='0 %') && (coreano.doctor!='No ratings yet'))  ||
+        ( (coreano.staff!='No ratings yet') && (coreano.staff!='0 %')) ) {
         coreano = '&nbsp; <img src="res/img/lang/south-korea.png" class="resize"/> ';
     }
     else {
         coreano = '';
     }
 
-    if ((espanol.doctor!='No ratings yet') || (espanol.staff!='No ratings yet')) {
+    if ( ((espanol.doctor!='0 %') && (espanol.doctor!='No ratings yet'))  ||
+        ( (espanol.staff!='No ratings yet') && (espanol.staff!='0 %')) ) {
         espanol = '&nbsp; <img src="res/img/lang/spain.png" class="resize"/> ';
     }
     else {
         espanol = '';
     }
 
-    if ((otro.doctor!='No ratings yet') || (otro.staff!='No ratings yet')) {
+    if ( ((otro.doctor!='0 %') && (otro.doctor!='No ratings yet'))  ||
+        ( (otro.staff!='No ratings yet') && (otro.staff!='0 %')) ) {
         otro = '&nbsp; <img src="res/img/lang/hospital.png" class="resize"/> ';
     }
     else {
@@ -346,7 +349,7 @@ function llamarClinicasRDF() {
 }
 
 function cargarClinicasRDF(clinicas) {
-    alert("Cargar clinicas RDF " + clinicas.length + " clinicas");
+    //Finalizo carga del RDF, mostrarlas como marcadores en el mapa
     for (var k = 0, clinicaP; clinicaP = clinicas[k]; k++) {
         addMarkerInfoWindow(clinicaP,map);
     }

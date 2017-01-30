@@ -5,7 +5,6 @@
 //$.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js");
 
 $.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
-    alert("Script loaded but not necessarily executed.");
 });
 
 var rdfmgr = new RDFmgr();
@@ -34,43 +33,34 @@ function sparqlRead(query){
     });
 }
 
-function updateInstance(datos){
+function updateInstance(voto){
 
     var sujeto, predicado, objeto;
 
-    //sujeto debe ser el ID de la clinica
-    sujeto = "http://linkdata.org/resource/rdf1s4853i#" + datos.id;
+    rdfmgr = new RDFmgr("APT");
 
-    for (var i = 0; i < datos.length; i++) {
-        predicado = "http://linkdata.org/property/rdf1s4853i#" + datos.atributo;
-        objeto = datos.valor;
+    //sujeto debe ser el ID de la clinica
+    sujeto = "http://linkdata.org/resource/rdf1s4853i#" + voto.id;
+
+    //TODO: HAY UN DETALLE AQUI CON LA FUNCION DE ERROR
+    for (var k = 0, votoP; votoP = voto.datos[k]; k++) {
+        predicado = "http://linkdata.org/property/rdf1s4853i#" + votoP.atributo;
+        objeto = votoP.valor;
 
         rdfmgr.updateInstance({
-            success:alert('Registro actualizado'),
+            success:sumarUpdate(1),
             projectID:"APT",
-            error:getErrorMsg,
+            error:sumarUpdate(-1),
             subject: sujeto,
             predicate: predicado,
             object: objeto
         });
     }
-
-    //predicado = el atributo que vamos a incrementar o valorar.
-    //objeto = objeto + 1;
-
 }
 
-//SparqlEPCUから受け取ったJSONデータをイテレータを使用して取り出し表作成
 function maketable(re){
     var clinicas = [];
     var lat, long;
-
-    /*var str = new String("<tr>");
-
-    for(var i=0; i<re.getKeyListLength();i++){
-        str += "<td>"+re.getKey(i)+"</td>";
-    }
-    str += "</tr>";*/
 
     //Aqui generamos los objetos particulares con cada uno de sus atributos
     while(re.next()) {
@@ -84,7 +74,8 @@ function maketable(re){
 
             //Armamos el objeto
             if (i == 0) { //Sujeto
-                if (elementos.length > 1) {
+                if ( (elementos.length > 1) ) {
+
                     if (id == null) { // Es el primer elemento, guardamos el id
                         id = elementos[1];
                     }
@@ -92,6 +83,7 @@ function maketable(re){
                         //Es nueva clinica, guardamos la anterior y creamos una nueva clinica
                         clinicas.push(clinica);
                         clinica = null;
+                        atributo = null;
                         id = elementos[1];
                     }
                 }
@@ -212,19 +204,23 @@ function maketable(re){
                     }
                 }
                 else { //Es algunas de las coordenadas probablemente, o el valor como tal
-                    if (clinica == null) {
-                        clinica = { //Inicializamos la clinica
+
+                    if (clinica == null) { //Inicializamos la clinica
+                        clinica = {
                             id: id,
                             type: "health"
                         };
                     }
-                    else if (atributo == "lat") {
+
+                    if (atributo == "lat") {
                         lat = elementos[0];
+                        atributo = null;
                     }
                     else if (atributo == "long"){
                         long = elementos[0];
+                        atributo = null;
                     }
-                    else if (elementos[0] == "geo:lat") {
+                    else if (elementos[0] == "geo:lat")  {
                         atributo = "lat";
                     }
                     else if (elementos[0] =="geo:long") {
@@ -245,6 +241,7 @@ function maketable(re){
             clinica["position"] = new google.maps.LatLng(lat, long);
             lat = null;
             long = null;
+            atributo = null;
         }
 
     }
