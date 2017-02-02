@@ -142,6 +142,7 @@ function recargarPaginaUpdate() {
 }
 
 function obtenerClinica() {
+
     var feature = JSON.parse(localStorage.getItem('clinica'));
 
     if (feature != null) {
@@ -526,6 +527,8 @@ function resetStars() {
 
 function reviewClinic() {
 
+    $("#Loading").show();
+
     //Debemos tomar todos los cambios nuevos
     var datos = [];
     var voto;
@@ -818,8 +821,7 @@ function reviewClinic() {
 
     updatesTotales = datos.length;
 
-
-    var ms = 300;
+    var ms = 400;
 
     //Aqui poner el ciclo con el timeOut para que efectivamente se realice la actualizacion
     for (var i = 0; i<datos.length; i++) {
@@ -833,28 +835,32 @@ function reviewClinic() {
         ms += 100;
     }
 
-    console.log("FINALIZO EL WHILE");
+    console.log("FINALIZO EL WHILE - Updates Exitosos: " + updatesExitosos + " -- Updates Fallidos: " + updatesFallidos);
 
-    //evaluarClinica(act);
+    setTimeout(function() {
+                    if ((updatesExitosos + updatesFallidos) == updatesTotales) {
+                        if (updatesExitosos == updatesTotales) {
+                            alert("Actualizacion exitosa");
+                            $("#Loading").hide();
+                            console.log("Re-cargar pagina");
+                            sparqlReadClinic(marker.id);
+                        }
+                        else {
+                            alert("Actualizacion parcialmente exitosa");
+                            $("#Loading").hide();
+                        }
 
+                        updatesExitosos = 0;
+                        updatesFallidos = 0;
+                        updatesTotales = 0;
+                    }
+        }
+        ,800);
 }
 
 function sumarUpdate(res) {
-
     (res==1)?updatesExitosos++:updatesFallidos++;
-
-    if ((updatesExitosos + updatesFallidos) == updatesTotales) {
-        if (updatesExitosos == updatesTotales) {
-            //alert("Actualizacion exitosa");
-            //sparqlReadClinic(marker.id);
-        }
-        else {
-            alert("Actualizacion parcialmente exitosa");
-        }
-        updatesExitosos = 0;
-        updatesFallidos = 0;
-        updatesTotales = 0;
-    }
+    console.log(">>> Funcion sumarUpdate exitosos: " + updatesExitosos + " -- fallidos: " + updatesFallidos);
 }
 
 function resetThumbs() {
