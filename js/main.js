@@ -3,6 +3,10 @@
  */
 $(document).ready(function () {
     initMap();
+
+    //TODO: Incluir el menu nuevo
+    //TODO: Funcionalidad de Explorar por region donde hay extranjeros por nacionalidad y cuantos hospitales para extranjeros (Algo asi como ESTA es la region mas gaijin friendly
+    //TODO: Plus alfa de elegir el datasource ya sea el archivo de LinkData o el servidor Sparql (del laboratorio)
 });
 
 $.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
@@ -107,12 +111,12 @@ function addMarkerInfoWindow(feature, mapa) {
 
         /* Evaluacion */
 
-        friendlyL1 : feature.FriendlyL1, //1 Estrella
-        friendlyL2 : feature.FriendlyL2, //2 Estrellas
-        friendlyL3 : feature.FriendlyL3 , //3 Estrellas
+        FriendlyL1 : feature.FriendlyL1, //1 Estrella
+        FriendlyL2 : feature.FriendlyL2, //2 Estrellas
+        FriendlyL3 : feature.FriendlyL3 , //3 Estrellas
 
-        foreignLanguageTreatmentExplanationTrue: feature.ForeignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
-        foreignLanguageTreatmentExplanationFalse: feature.ForeignLanguageTreatmentExplanationFalse
+        ForeignLanguageTreatmentExplanationTrue: feature.ForeignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+        ForeignLanguageTreatmentExplanationFalse: feature.ForeignLanguageTreatmentExplanationFalse
     });
 
     var infowindow = new google.maps.InfoWindow();
@@ -214,12 +218,12 @@ function crearContenido(marker) {
 }
 
 function reviewClinic() {
-    var x = markerASimple(activeMarker);
+    var x = markerASimpleBase(activeMarker);
     localStorage.setItem('clinica',JSON.stringify(x));
     location.assign('clinicReview.html');
 }
 
-function markerASimple(marker) {
+function markerASimpleBase(marker) {
     var ret = {
         id: marker.id,
         description: marker.description,
@@ -262,14 +266,14 @@ function markerASimple(marker) {
 
         /* Evaluacion */
 
-        friendlyL1 : marker.friendlyL1, //1 Estrella
-        friendlyL2 : marker.friendlyL2, //2 Estrellas
-        friendlyL3 : marker.friendlyL3 , //3 Estrellas
+        FriendlyL1 : marker.FriendlyL1, //1 Estrella
+        FriendlyL2 : marker.FriendlyL2, //2 Estrellas
+        FriendlyL3 : marker.FriendlyL3, //3 Estrellas
 
-        foreignLanguageTreatmentExplanationTrue: marker.foreignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
-        foreignLanguageTreatmentExplanationFalse: marker.foreignLanguageTreatmentExplanationFalse
-
+        ForeignLanguageTreatmentExplanationTrue: marker.ForeignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+        ForeignLanguageTreatmentExplanationFalse: marker.ForeignLanguageTreatmentExplanationFalse
     };
+
     return ret;
 }
 

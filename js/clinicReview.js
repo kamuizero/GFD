@@ -84,12 +84,12 @@ function initMap(feature) {
 
         /* Evaluacion */
 
-        friendlyL1 : feature.friendlyL1, //1 Estrella
-        friendlyL2 : feature.friendlyL2, //2 Estrellas
-        friendlyL3 : feature.friendlyL3 , //3 Estrellas
+        FriendlyL1 : feature.FriendlyL1, //1 Estrella
+        FriendlyL2 : feature.FriendlyL2, //2 Estrellas
+        FriendlyL3 : feature.FriendlyL3 , //3 Estrellas
 
-        foreignLanguageTreatmentExplanationTrue: feature.foreignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
-        foreignLanguageTreatmentExplanationFalse: feature.foreignLanguageTreatmentExplanationFalse
+        ForeignLanguageTreatmentExplanationTrue: feature.ForeignLanguageTreatmentExplanationTrue, //Ofrecen posologia o indicaciones en idioma extranjero - Votos positivos
+        ForeignLanguageTreatmentExplanationFalse: feature.ForeignLanguageTreatmentExplanationFalse
 
     });
 
@@ -130,6 +130,15 @@ function crearContenido(marker) {
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
         '<br><br>';
     return html;
+}
+
+function recargarPaginaUpdate() {
+    hideButton("botonReview");
+    hideButton("botonClear");
+    obtenerClinica();
+    resetStars();
+    clearAllThumbs();
+    location.assign("clinicReview.html");
 }
 
 function obtenerClinica() {
@@ -305,21 +314,21 @@ function evaluarIdioma(idioma) {
     return {
         positivoDoctor : positivoDoctor,
         negativoDoctor : negativoDoctor,
-        doctor : (porcentajeTotalDoctor == -1)?'No ratings yet':porcentajeTotalDoctor + ' %',
+        doctor : (porcentajeTotalDoctor == -1)?'No ratings yet':porcentajeTotalDoctor.toFixed(2) + ' %',
         positivoStaff : positivoStaff,
         negativoStaff : negativoStaff,
-        staff : (porcentajeTotalStaff == -1)?'No ratings yet':porcentajeTotalStaff + ' %'
+        staff : (porcentajeTotalStaff == -1)?'No ratings yet':porcentajeTotalStaff.toFixed(2) + ' %'
     }
 }
 
 function evaluarPrescripcion() {
     var round = Math.round;
 
-    var positiveVotes = round(marker.foreignLanguageTreatmentExplanationTrue);
-    var negativeVotes = round(marker.foreignLanguageTreatmentExplanationFalse);
+    var positiveVotes = round(marker.ForeignLanguageTreatmentExplanationTrue);
+    var negativeVotes = round(marker.ForeignLanguageTreatmentExplanationFalse);
 
     if (positiveVotes > 0 || negativeVotes > 0) {
-        return ( (positiveVotes/(positiveVotes+negativeVotes))*100 );
+        return ( (positiveVotes/(positiveVotes+negativeVotes))*100 ).toFixed(2);
     }
     else {
         return -1;
@@ -331,9 +340,9 @@ function evaluarRating() {
     var round = Math.round;
     var L1, L2, L3;
 
-    L1 = round(marker.friendlyL1);
-    L2 = round(marker.friendlyL2);
-    L3 = round(marker.friendlyL3);
+    L1 = round(marker.FriendlyL1);
+    L2 = round(marker.FriendlyL2);
+    L3 = round(marker.FriendlyL3);
 
     var suma = L1+L2+L3;
 
@@ -473,6 +482,27 @@ function showButton(boton) {
 
 function hideButton(boton){
     document.getElementById(boton).style.display = "none";
+}
+
+function clearAllThumbs() {
+
+    document.getElementsByName("votoIndicacion").checked = false;
+
+    document.getElementsByName("votoInglesDoc").checked = false;
+    document.getElementsByName("votoInglesStaff").checked = false;
+
+    document.getElementsByName("votoChinoDoc").checked = false;
+    document.getElementsByName("votoChinoStaff").checked = false;
+
+    document.getElementsByName("votoCoreanoDoc").checked = false;
+    document.getElementsByName("votoCoreanoStaff").checked = false;
+
+    document.getElementsByName("votoEspanolDoc").checked = false;
+    document.getElementsByName("votoEspanolStaff").checked = false;
+
+    document.getElementsByName("votoOtroDoc").checked = false;
+    document.getElementsByName("votoOtroStaff").checked = false;
+
 }
 
 function resetStars() {
@@ -719,21 +749,21 @@ function reviewClinic() {
             case 1:
                 voto = {
                     atributo: "FriendlyL1",
-                    valor: Math.round(marker.friendlyL1) + 1
+                    valor: Math.round(marker.FriendlyL1) + 1
                 };
                 datos.push(voto);
                 break;
             case 2:
                 voto = {
                     atributo: "FriendlyL2",
-                    valor: Math.round(marker.friendlyL2) + 1
+                    valor: Math.round(marker.FriendlyL2) + 1
                 };
                 datos.push(voto);
                 break;
             case 3:
                 voto = {
                     atributo: "FriendlyL3",
-                    valor: Math.round(marker.friendlyL3) + 1
+                    valor: Math.round(marker.FriendlyL3) + 1
                 };
                 datos.push(voto);
                 break;
@@ -749,14 +779,14 @@ function reviewClinic() {
         case 1:
             voto = {
                 atributo: "ForeignLanguageTreatmentExplanationTrue",
-                valor: Math.round(marker.foreignLanguageTreatmentExplanationTrue) + 1
+                valor: Math.round(marker.ForeignLanguageTreatmentExplanationTrue) + 1
             };
             datos.push(voto);
             break;
         case -1:
             voto = {
                 atributo: "ForeignLanguageTreatmentExplanationFalse",
-                valor: Math.round(marker.foreignLanguageTreatmentExplanationFalse) + 1
+                valor: Math.round(marker.ForeignLanguageTreatmentExplanationFalse) + 1
             };
             datos.push(voto);
             break;
@@ -787,21 +817,36 @@ function reviewClinic() {
     };
 
     updatesTotales = datos.length;
-    evaluarClinica(act);
+
+
+    var ms = 300;
+
+    //Aqui poner el ciclo con el timeOut para que efectivamente se realice la actualizacion
+    for (var i = 0; i<datos.length; i++) {
+        console.log("Updates totales: " + updatesTotales);
+        console.log("Updates exitosos: " + updatesExitosos + " -- Updates fallidos: " + updatesFallidos);
+
+        setTimeout(evaluarClinica({id: marker.id,
+            atributo: datos[i].atributo,
+            valor: datos[i].valor}),ms);
+
+        ms += 100;
+    }
+
+    console.log("FINALIZO EL WHILE");
+
+    //evaluarClinica(act);
+
 }
 
-//Esta funcion recibe los datos desde el procedimiento de SparqlEPCUDAO
-function respuestaEvaluarClinica(resultado){
-    alert("Finalizo calificacion de la clinica");
-}
-
-function sumarUpdate(res){
+function sumarUpdate(res) {
 
     (res==1)?updatesExitosos++:updatesFallidos++;
 
     if ((updatesExitosos + updatesFallidos) == updatesTotales) {
         if (updatesExitosos == updatesTotales) {
-            alert("Actualizacion exitosa");
+            //alert("Actualizacion exitosa");
+            //sparqlReadClinic(marker.id);
         }
         else {
             alert("Actualizacion parcialmente exitosa");
