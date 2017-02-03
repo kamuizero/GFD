@@ -8,7 +8,8 @@ html, body {
     margin: 0;
     padding: 0;
     font-size: 100%;
-    background-color: #333;
+    /*background-color: #333;*/
+    background-color: whitesmoke;
     color: cadetblue;
     font-weight: normal;
     vertical-align: baseline;
@@ -50,12 +51,6 @@ html, body {
     padding: 15px;
     /*border: 1px solid red;*/
 }
-
-.menuTab {
-    margin-bottom: 10px;
-    margin-top: 5px;
-}
-
 /* FIN DE DEFINICION DE COLUMNAS PARA EL GRID LAYOUT */
 
 .center {
@@ -71,7 +66,7 @@ img.resize{
 }
 
 header{
-    color: #fff;
+    color: #333333;
     font-size: 32px;
     text-align: center;
     margin-top: 10px;
@@ -80,20 +75,107 @@ header{
 
 h1 {
     text-align: center;
-    color: white;
+    color: black;
     margin-bottom: 25px;
 }
 
-section{
-    padding-top: 10px;
-    width:100%;
-    height: 80%;
-    /*background-color: aliceblue;*/
+/* ESTILO DE MENU */
+#logo {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    float: left;
+    height: auto;
+    width: 72px;
 }
 
-footer{
-    text-align: center;
+#menu {
+    /*background: url(http://4.bp.blogspot.com/-dVtgikk-kOY/UprtswP0yGI/AAAAAAAADag/Og0DtZ8t_oQ/s1600/header+base.png) no-repeat scroll top left;     background-color: none;*/
+    width:100%;
+    height:80px;
+    box-shadow: 0px 1px 10px #5E5E5E;
+    position:fixed;
+    top:0px;
 }
+
+/* Style the list */
+ul.menuTab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/
+    /*border: 1px solid #f17a00;*/
+    /*background-color: #f1f1f1;*/
+    background-color: #5E5E5E;
+    position: fixed;
+    top:0;
+    width: 100%;
+    box-shadow: 0px 1px 10px #5E5E5E;
+}
+
+/* Float the list items side by side */
+ul.menuTab li {float: left; }
+
+/* Style the links inside the list items */
+ul.menuTab li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 30px 30px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.menuTab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.menuTab li a:focus, .active {background-color: #ccc;}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.main {
+    padding: 16px;
+    margin-top: 72px;
+    height: 90%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*background-color: #333;*/
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0px 2px 10px #5E5E5E;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    /*padding: 16px;*/
+    padding: 16px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* FIN DE ESTILO DE MENU */
 
 /* ESTILO DE BOTON */
 
@@ -127,7 +209,7 @@ a.btn:active {
 
 #map {
     height: 95%;
-    width: 95%;
+    width: 100%;
 }
 
 /* ESTILOS PARA CLINIC REVIEW */
@@ -152,20 +234,20 @@ a.btn:active {
 .direccionClinica {
     font-size: 16px;
     margin-left: 15px;
-    color: white;
+    color: #333;
 }
 
 .infoIdioma {
     margin-left: 20px;
-    color: white;
+    color: #333;
 }
 
 .infoIndicacion {
-    color: white;
+    color: #333;
 }
 
 .infoFriendliness {
-    color: white;
+    color: #333;
 }
 
 .imagenBanderaReview {
@@ -236,7 +318,7 @@ a.btn:active {
     transition: all 100ms ease-in;
     -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
     -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-    filter: brightness(1.8) grayscale(1) opacity(.7);
+    filter: brightness(1.1) grayscale(0.8) opacity(0.9);
 }
 .pulgar-cc:hover{
     -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
@@ -254,7 +336,8 @@ a.btn:active {
 
 /* Image(s) */
 .starbox .stars .star_holder .star {
-    background-image: url('../res/img/5-large-333.png'); /* or any other image */
+    /*background-image: url('../res/img/5-large-333.png'); !* or any other image *!*/
+    background-image: url('../res/img/5-large-sw.png'); /* or any other image */
     width: 33px; /* make sure to use your image’s dimensions here */
     height: 33px;
 }
@@ -266,7 +349,8 @@ a.btn:active {
     cursor:pointer;
 }
 
-.starbox .stars { background: ghostwhite; }
+/*.starbox .stars { background: ghostwhite; }*/
+.starbox .stars { background: #333333; }
 /*.starbox .rated .stars { background: #dcdcdc; }*/
 .starbox .rated .stars { background: #dcdcdc; }
 /*.starbox .rated.hover .stars { background: #cccccc; }*/

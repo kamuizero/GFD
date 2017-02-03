@@ -53,31 +53,24 @@ function sparqlReadClinic(id){
 function updateInstance(voto){
 
     var sujeto, predicado, objeto;
+    rdfmgr = new RDFmgr("APT");
 
-    //sujeto debe ser el ID de la clinica
+    sujeto = "http://linkdata.org/resource/rdf1s4853i#" + voto.id;
+    predicado = "http://linkdata.org/property/rdf1s4853i#" + voto.atributo;
+    objeto = voto.valor;
 
+    setTimeout(
+        rdfmgr.updateInstance({
+            success:sumarUpdate(1),
+            projectID:"APT",
+            //error:sumarUpdate(-1),
+            error:getErrorMsg,
+            subject: sujeto,
+            predicate: predicado,
+            object: objeto
+        })
+    , 300);
 
-    //TODO: HAY UN DETALLE AQUI CON LA FUNCION DE ERROR
-    //for (var k = 0, votoP; votoP = voto.datos[k]; k++) {
-        rdfmgr = new RDFmgr("APT");
-        sujeto = "http://linkdata.org/resource/rdf1s4853i#" + voto.id;
-        //predicado = "http://linkdata.org/property/rdf1s4853i#" + votoP.atributo;
-        predicado = "http://linkdata.org/property/rdf1s4853i#" + voto.atributo;
-        //objeto = votoP.valor;
-        objeto = voto.valor;
-
-        setTimeout(
-            rdfmgr.updateInstance({
-                success:sumarUpdate(1),
-                projectID:"APT",
-                //error:sumarUpdate(-1),
-                error:getErrorMsg,
-                subject: sujeto,
-                predicate: predicado,
-                object: objeto
-            })
-        , 300);
-    //}
 }
 
 function recargarClinica(re) {
