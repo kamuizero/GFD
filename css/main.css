@@ -1,8 +1,24 @@
 /* ESTILO BASE */
-* {
-    box-sizing: border-box;
+@font-face{
+    /*font-family: "Roboto-Medium";*/
+    /*src: url("/res/fonts/Roboto/Roboto-Medium.ttf"),*/
+    /*url("../res/fonts/Roboto/Roboto-Medium.ttf");*/
+
+    /*Para incluir mas fuentes, referenciar esta pagina:
+    *
+    * http://www.freejapanesefont.com/tag/commercial-use-ok/page/5/
+    *
+    */
+
+    font-family: "ほのかアンティーク丸";
+    src: url("/res/fonts/antique-maru/font_1_ant-maru.ttf"),
+    url("../res/fonts/antique-maru/font_1_ant-maru.ttf") format("truetype");
 }
 
+* {
+    box-sizing: border-box;
+    font-family: ほのかアンティーク丸 !important;
+}
 html, body {
     height: 100%;
     margin: 0;
@@ -163,6 +179,14 @@ ul {
 
 li {
     float: left;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all  0.3s ease;
+}
+
+li.tablinks:hover {
+    background-color: cadetblue;
 }
 
 li a {
@@ -183,6 +207,7 @@ a.btn {
     display: inline-block;
     cursor:pointer;
     color: #666;
+    /*background-color: lightslategray;*/
     background-color: #eee;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -215,7 +240,7 @@ a.btn:active {
 /* ESTILOS PARA CLINIC REVIEW */
 
 #mapaClinica {
-    height: 675px;
+    height: 725px;
     width: 650px;
 }
 
@@ -350,7 +375,7 @@ a.btn:active {
 }
 
 /*.starbox .stars { background: ghostwhite; }*/
-.starbox .stars { background: #333333; }
+.starbox .stars { background: lightgray; }
 /*.starbox .rated .stars { background: #dcdcdc; }*/
 .starbox .rated .stars { background: #dcdcdc; }
 /*.starbox .rated.hover .stars { background: #cccccc; }*/
@@ -360,7 +385,7 @@ a.btn:active {
 /*.starbox .hover .colorbar { background: #ffcc1c; }*/
 .starbox .hover .colorbar { background: #ffcc1c; }
 /*.starbox .rated .colorbar { background: #64b2ff; }*/
-.starbox .rated .colorbar { background: greenyellow; }
+.starbox .rated .colorbar { background: coral; }
 /*.starbox .rated.hover .colorbar { background: #1e90ff; }*/
 .starbox .rated.hover .colorbar { background: #1e90ff; }
 /*.starbox .ghost { background: #a1a1a1; }*/

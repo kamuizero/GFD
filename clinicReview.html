@@ -26,23 +26,18 @@
 </div>
 
 <ul>
-    <!-- <li><a href="javascript:void(0)" class="tablinks" onclick="abrirMenu(event, 'home')"><img src="res/img/lang/hospital.png" style="width: 15px; height: auto"></a></li> -->
-    <!--<li><a href="javascript:void(0)" class="tablinks" onclick="abrirMenu(event, 'home')">外国人フレンドリークリニック集</a></li>-->
-    <li><a href="javascript:void(0)" class="tablinks" onclick=" location.assign('index.html'); return false;"><img src="res/img/lang/hospital.png" style="width: 52px; height: auto"></a></li>
-    <li><a href="javascript:void(0)" class="tablinks" onclick="abrirMenu(event, 'create')" style="margin-top: 18px">CREATE</a></li>
-    <li><a href="javascript:void(0)" class="tablinks" onclick="abrirMenu(event, 'source')" style="margin-top: 18px">SOURCE</a></li><li>
-    <li><a href="javascript:void(0)" class="tablinks" onclick="abrirMenu(event, 'about')" style="margin-top: 18px">ABOUT</a></li><li>
+    <li><a href="javascript:void(0)" onclick="location.assign('index.html'); return false;"><img src="res/img/lang/hospital.png" style="width: 52px; height: auto; "></a></li>
+    <li class="tablinks"><a href="javascript:void(0)" onclick="location.assign('create.html'); return false;" style="margin-top: 18px; margin-bottom: 16px">CREATE</a></li>
+    <li class="tablinks"><a href="javascript:void(0)" onclick="location.assign('dataSource.html'); return false;" style="margin-top: 18px; margin-bottom: 16px">SOURCE</a></li><li>
+    <li class="tablinks"><a href="javascript:void(0)" onclick="location.assign('about.html'); return false;" style="margin-top: 18px; margin-bottom: 16px">ABOUT</a></li><li>
 </ul>
 
 <div class="main">
-    <header onclick=" location.assign('index.html'); return false;">外国人フレンドリークリニック集</header>
-
-    <h1> Clinic Details</h1>
+    <header>外国人フレンドリークリニック集 - Clinic Details</header>
+    <br>
 
     <div id="clinicInfo" class="row">
-
         <div id="rI" class="col-2">
-
         </div>
 
         <div id="mapaClinica" class="col-4 mapaReview"></div>
@@ -181,7 +176,6 @@
             <label class="pulgar-cc tDown"for="thumbDownIndicacion"></label>
         </span>
 
-            <br>
             <br>
             <br>
             <div id="botones">
