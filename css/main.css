@@ -169,6 +169,7 @@ ul.menuTab li a:focus, .active {background-color: #ccc;}
     width: 80%;
     background: #FFFFFF;
     margin: 60px auto;
+    overflow: auto;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -379,7 +380,7 @@ a.btn:active {
 /* Image(s) */
 .starbox .stars .star_holder .star {
     /*background-image: url('../res/img/5-large-333.png'); !* or any other image *!*/
-    background-image: url('../res/img/5-large-sw.png'); /* or any other image */
+    background-image: url('../res/img/5-large.png'); /* or any other image */
     width: 33px; /* make sure to use your image’s dimensions here */
     height: 33px;
 }
@@ -434,13 +435,15 @@ a.btn:active {
 /*=====================*/
 
 .divDatosClinica{
-    width: 65%;
+    width: 70%;
     padding: 30px;
     background: #FFFFFF;
-    margin: 50px auto;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+    margin: 10px auto;
+    overflow: auto;
+    /*box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    *-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    *-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+    */
 
 }
 .divDatosClinica h2{
@@ -469,7 +472,7 @@ a.btn:active {
     -moz-box-sizing: border-box;
     outline: none;
     display: block;
-    width: 100%;
+    width: 45%;
     padding: 7px;
     border: none;
     border-bottom: 1px solid #ddd;
