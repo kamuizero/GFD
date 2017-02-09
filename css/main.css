@@ -405,7 +405,8 @@ a.btn:active {
 /*.starbox .rated .colorbar { background: #64b2ff; }*/
 .starbox .rated .colorbar { background: coral; }
 /*.starbox .rated.hover .colorbar { background: #1e90ff; }*/
-.starbox .rated.hover .colorbar { background: #1e90ff; }
+.starbox .rated.hover .colorbar { background: coral; }
+/*.starbox .rated.hover .colorbar { background: #1e90ff; }*/
 /*.starbox .ghost { background: #a1a1a1; }*/
 .starbox .ghost { background: lightslategray; }
 

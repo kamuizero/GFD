@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <title>Create Clinic</title>
 
+    <link rel="stylesheet" href="css/jstarbox.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="shortcut icon" href="favicon.ico" />
+
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/createClinic.js"></script>
+    <script src="js/jstarbox.js"></script>
 
 </head>
 <body>
@@ -36,7 +41,7 @@
                 <br>
                 <br>
                 <input type="text" name="field1" placeholder="クリニック名 - Clinic name"/>
-                <input type="email" name="field2" placeholder="クリニック住所 - Address"/>
+                <input type="email" name="field2" placeholder="クリニック住所 - Address" onChange="displayMap(this);"/>
 
                 <br>
                 <strong style="float: left;">言語 - Languages</strong>
@@ -160,9 +165,14 @@
                 <br>
                 <br>
                 <br>
+
                 <strong style="float: left;">Doctor's Friendliness Level</strong>
                 <br>
-                <div class="starbox"> </div> <br> &nbsp; <a id="divRatingActitud" class="infoFriendliness" ></a>
+                <br>
+                <div class="starbox"> </div>
+                <br> &nbsp;
+                <a id="divRatingActitud" class="infoFriendliness" ></a>
+
                 <br>
                 <br>
                 <strong>Prescription, Indications and dosage explanation in foreign language?</strong>
@@ -177,14 +187,25 @@
                 <br>
                 <br>
                 <!--Estos botones tienen que ir centrados-->
-                <input type="button" value="Back" />
-                <input type="button" value="Add Clinic" />
+                <div id="botones">
+                    <a id="botonBackC" class="btn" onclick="history.back(-1);">Back</a>
+                    &nbsp;
+                    <a id="botonAdd" class="btn" onclick="addClinic();" style="display: none">Add Clinic</a>
+                    &nbsp;
+                    <a id="botonClearC" class="btn" onclick="clearInput();" style="display: none">Clear</a>
+                </div>
+
+                <!--<input type="button" class="btn" onclick="history.back(-1);" value="Back" />-->
+                <!--<input type="button" class="btn" value="Add Clinic" />-->
             </form>
     </div>
 </div>
 
 <!--Mapa para colocar el marcador, datos basicos de la clinica, -->
 
+<script>
+    init();
+</script>
 
 </body>
 </html>
