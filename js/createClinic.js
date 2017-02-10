@@ -9,6 +9,8 @@ var ratingUsuarioInglesDoc, ratingUsuarioChinoDoc, ratingUsuarioEspanolDoc, rati
     ratingUsuarioInglesStaff, ratingUsuarioChinoStaff, ratingUsuarioEspanolStaff, ratingUsuarioCoreanoStaff, ratingUsuarioOtroStaff,
     ratingUsuarioFL, ratingUsuarioIndicaciones;
 
+var mapa;
+
 //===================
 //METODOS Y FUNCIONES
 //===================
@@ -22,11 +24,11 @@ function hideButton(boton){
 
 function displayMap(element) {
     if (!element.value) {
-        alert('Please enter a part number.');
+        alert('Please enter an address');
         element.focus();   // <======= why isn't this having any effect??
     }
     else {
-        alert(element.value);
+        obtenerCoordenadas(element.value);
     }
 }
 
@@ -270,5 +272,72 @@ function addClinic() {
     //Validar
 
     //Agregar
+
+}
+
+function obtenerCoordenadas(valor) {
+
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode( { 'address': valor}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
+            console.log("Latitude: " + latitude + " and longitude: " + longitude);
+
+            //Hacemos la imagen invisible
+            document.getElementById("imagenLogo").style.display = "none";
+
+            //Mostramos el mapa
+            document.getElementById("mapC").style.width = "670px";
+            document.getElementById("mapC").style.height = "645px";
+            document.getElementById("mapC").style.float = "left";
+            document.getElementById("mapC").style.marginRight = "25px";
+
+            mapa = new google.maps.Map(document.getElementById('mapC'), {
+                zoom: 18,
+                center: {lat:latitude, lng: longitude},
+                mapTypeControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_CENTER
+            },
+                scaleControl: true,
+                streetViewControl: false
+            });
+
+            var marker = new google.maps.Marker({
+                map: mapa,
+                position: {lat:latitude, lng: longitude}
+            });
+
+            google.maps.event.addDomListener(window, "resize", function() {
+                var center = mapa.getCenter();
+                google.maps.event.trigger(mapa, "resize");
+                mapa.setCenter(center);
+            });
+
+        }
+    });
+
+    /*geocoder.geocode({'address': valor}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });*/
+
+    // var response = geocoder.geocode(valor);
+    //
+    // for (var i = 0; i < response.results.length; i++) {
+    //     var result = response.results[i];
+    //     Logger.log('%s: %s, %s', result.formatted_address, result.geometry.location.lat,
+    //         result.geometry.location.lng);
+    // }
 
 }
