@@ -43,8 +43,8 @@
             <strong style="float: left;">クリニックの基本情報 - Clinic base information</strong>
             <br>
             <br>
-            <input type="text" name="field1" placeholder="クリニック名 - Clinic name" maxlength="100"/>
-            <input type="text" name="field2" placeholder="クリニック住所 - Address" onChange="displayMap(this);" maxlength="250"/>
+            <input type="text" name="field1" placeholder="クリニック名 - Clinic name" onChange="obtenerNombre(this);" maxlength="100"/>
+            <input type="text" name="field2" placeholder="クリニック住所（地図が自動的に表示される） - Address (Map will be automatically displayed)" onChange="displayMap(this);" maxlength="250"/>
 
             <br>
             <strong style="float: left;">言語 - Languages</strong>
@@ -197,9 +197,6 @@
                 &nbsp;
                 <a id="botonClearC" class="btn" onclick="clearInput();" style="display: none">Clear</a>
             </div>
-
-            <!--<input type="button" class="btn" onclick="history.back(-1);" value="Back" />-->
-            <!--<input type="button" class="btn" value="Add Clinic" />-->
         </form>
     </div>
 </div>

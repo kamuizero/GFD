@@ -8,8 +8,8 @@
 var ratingUsuarioInglesDoc, ratingUsuarioChinoDoc, ratingUsuarioEspanolDoc, ratingUsuarioCoreanoDoc, ratingUsuarioOtroDoc,
     ratingUsuarioInglesStaff, ratingUsuarioChinoStaff, ratingUsuarioEspanolStaff, ratingUsuarioCoreanoStaff, ratingUsuarioOtroStaff,
     ratingUsuarioFL, ratingUsuarioIndicaciones;
-
-var mapa;
+var mapa, marker;
+var nombreClinica, direccionClinica;
 
 //===================
 //METODOS Y FUNCIONES
@@ -24,11 +24,13 @@ function hideButton(boton){
 
 function displayMap(element) {
     if (!element.value) {
-        alert('Please enter an address');
-        element.focus();   // <======= why isn't this having any effect??
+        // alert('Please enter an address');
+        direccionClinica = null;
+        // element.focus();   // <======= why isn't this having any effect??
     }
     else {
-        obtenerCoordenadas(element.value);
+        direccionClinica = element.value
+        obtenerCoordenadas(direccionClinica);
     }
 }
 
@@ -186,11 +188,11 @@ function verificarVisibilidad() {
         ratingUsuarioCoreanoDoc==null && ratingUsuarioOtroDoc==null && ratingUsuarioInglesStaff==null &&
         ratingUsuarioChinoStaff==null && ratingUsuarioEspanolStaff==null && ratingUsuarioCoreanoStaff==null &&
         ratingUsuarioOtroStaff==null && ratingUsuarioFL==null && ratingUsuarioIndicaciones== null &&
-        ratingUsuarioFL == null) {
+        ratingUsuarioFL == null && marker == null && nombreClinica == null && direccionClinica == null) {
         hideButton('botonAdd');
         hideButton('botonClearC');
     }
-    else{
+    else {
         showButton('botonAdd');
         showButton('botonClearC');
     }
@@ -267,17 +269,248 @@ function resetStars() {
 
 function addClinic() {
 
+    var ok = true;
+
     //Agarrar los valores
+    console.log("Nombre de la clinica :" + nombreClinica);
+    console.log("Direccion de la clinica :" + direccionClinica);
+
+    if (marker != null) {
+        console.log("Coordenadas de la clinica - Latitud: " + marker.position.lat() +
+            " Longitud: " + marker.position.lng());
+    }
 
     //Validar
 
+    if (nombreClinica == undefined) {
+        alert('クリニックの名前を入力してください - Please input a clinic name');
+        ok = false;
+    }
+    else if (direccionClinica == undefined) {
+        alert('クリニックの住所を入力してください - Please enter an address');
+        ok = false;
+    }
+    else if (marker == null) {
+        alert('地図にクリニックの位置を設定してください - Please pick a location on the map');
+        ok = false;
+    }
+
     //Agregar
 
+    if (ok) {
+        alert('Agregar la clinica');
+
+        marker["title"] = nombreClinica;
+        marker["description"] = direccionClinica;
+
+        //Ingles Doctor
+        if (ratingUsuarioInglesDoc == null || ratingUsuarioInglesDoc== undefined) {
+            marker["doctorSpeaksEnglishTrue"] = 0;
+            marker["doctorSpeaksEnglishFalse"] = 0;
+        }
+        else if (ratingUsuarioInglesDoc=='up') { //Positivo
+            marker["doctorSpeaksEnglishTrue"] = 1;
+            marker["doctorSpeaksEnglishFalse"] = 0;
+        }
+        else { //Negativo
+            marker["doctorSpeaksEnglishTrue"] = 0;
+            marker["doctorSpeaksEnglishFalse"] = 1;
+        }
+
+        //Ingles Staff
+        if (ratingUsuarioInglesStaff == null || ratingUsuarioInglesStaff== undefined) {
+            marker["staffSpeaksEnglishTrue"] = 0;
+            marker["staffSpeaksEnglishFalse"] = 0;
+        }
+        else if (ratingUsuarioInglesStaff=='up') { //Positivo
+            marker["staffSpeaksEnglishTrue"] = 1;
+            marker["staffSpeaksEnglishFalse"] = 0;
+        }
+        else { //Negativo
+            marker["staffSpeaksEnglishFalse"] = 1;
+            marker["staffSpeaksEnglishTrue"] = 0;
+        }
+
+        //Chino Doctor
+        if (ratingUsuarioChinoDoc == null || ratingUsuarioChinoDoc== undefined) {
+            marker["doctorSpeaksChineseTrue"] = 0;
+            marker["doctorSpeaksChineseFalse"] = 0;
+        }
+        else if (ratingUsuarioChinoDoc=='up') { //Positivo
+            marker["doctorSpeaksChineseTrue"] = 1;
+            marker["doctorSpeaksChineseFalse"] = 0;
+        }
+        else { //Negativo
+            marker["doctorSpeaksChineseFalse"] = 1;
+            marker["doctorSpeaksChineseTrue"] = 0;
+        }
+
+        //Chino Staff
+        if (ratingUsuarioChinoStaff == null || ratingUsuarioChinoStaff== undefined) {
+            marker["staffSpeaksChineseTrue"] = 0;
+            marker["staffSpeaksChineseFalse"] = 0;
+        }
+        else if (ratingUsuarioChinoStaff=='up') { //Positivo
+            marker["staffSpeaksChineseTrue"] = 1;
+            marker["staffSpeaksChineseFalse"] = 0;
+        }
+        else { //Negativo
+            marker["staffSpeaksChineseFalse"] = 1;
+            marker["staffSpeaksChineseTrue"] = 0;
+        }
+
+        //Coreano doctor
+        if (ratingUsuarioCoreanoDoc == null || ratingUsuarioCoreanoDoc== undefined) {
+            marker["doctorSpeaksKoreanTrue"] = 0;
+            marker["doctorSpeaksKoreanFalse"] = 0;
+        }
+        else if (ratingUsuarioCoreanoDoc=='up') { //Positivo
+            marker["doctorSpeaksKoreanTrue"] = 1;
+            marker["doctorSpeaksKoreanFalse"] = 0;
+        }
+        else { //Negativo
+            marker["doctorSpeaksKoreanFalse"] = 1;
+            marker["doctorSpeaksKoreanTrue"] = 0;
+        }
+
+        //Coreano Staff
+        if (ratingUsuarioCoreanoStaff == null || ratingUsuarioCoreanoStaff== undefined) {
+            marker["staffSpeaksKoreanTrue"] = 0;
+            marker["staffSpeaksKoreanFalse"] = 0;
+        }
+        else if (ratingUsuarioCoreanoStaff=='up') { //Positivo
+            marker["staffSpeaksKoreanTrue"] = 1;
+            marker["staffSpeaksKoreanFalse"] = 0;
+        }
+        else { //Negativo
+            marker["staffSpeaksKoreanFalse"] = 1;
+            marker["staffSpeaksKoreanTrue"] = 0;
+        }
+
+        //Espanol doctor
+        if (ratingUsuarioEspanolDoc == null || ratingUsuarioEspanolDoc== undefined) {
+            marker["doctorSpeaksSpanishTrue"] = 0;
+            marker["doctorSpeaksSpanishFalse"] = 0;
+        }
+        else if (ratingUsuarioEspanolDoc=='up') { //Positivo
+            marker["doctorSpeaksSpanishTrue"] = 1;
+            marker["doctorSpeaksSpanishFalse"] = 0;
+        }
+        else { //Negativo
+            marker["doctorSpeaksSpanishFalse"] = 1;
+            marker["doctorSpeaksSpanishTrue"] = 0;
+        }
+
+        //Espanol Staff
+        if (ratingUsuarioEspanolStaff == null || ratingUsuarioEspanolStaff== undefined) {
+            marker["staffSpeaksSpanishTrue"] = 0;
+            marker["staffSpeaksSpanishFalse"] = 0;
+        }
+        else if (ratingUsuarioEspanolStaff=='up') { //Positivo
+            marker["staffSpeaksSpanishTrue"] = 1;
+            marker["staffSpeaksSpanishFalse"] = 0;
+        }
+        else { //Negativo
+            marker["staffSpeaksSpanishFalse"] = 1;
+            marker["staffSpeaksSpanishTrue"] = 0;
+        }
+
+        //Otro doctor
+        if (ratingUsuarioOtroDoc == null || ratingUsuarioOtroDoc== undefined) {
+            marker["doctorSpeaksOtherTrue"] = 0;
+            marker["doctorSpeaksOtherFalse"] = 0;
+        }
+        else if (ratingUsuarioOtroDoc=='up') { //Positivo
+            marker["doctorSpeaksOtherTrue"] = 1;
+            marker["doctorSpeaksOtherFalse"] = 0;
+        }
+        else { //Negativo
+            marker["doctorSpeaksOtherFalse"] = 1;
+            marker["doctorSpeaksOtherTrue"] = 0;
+        }
+
+        //Otro Staff
+        if (ratingUsuarioOtroStaff == null || ratingUsuarioOtroStaff== undefined) {
+            marker["staffSpeaksOtherTrue"] = 0;
+            marker["staffSpeaksOtherFalse"] = 0;
+        }
+        else if (ratingUsuarioOtroStaff=='up') { //Positivo
+            marker["staffSpeaksOtherTrue"] = 1;
+            marker["staffSpeaksOtherFalse"] = 0;
+        }
+        else { //Negativo
+            marker["staffSpeaksOtherFalse"] = 1;
+            marker["staffSpeaksOtherTrue"] = 0;
+        }
+
+        switch (ratingUsuarioFL) {
+            case undefined||null :
+                marker["FriendlyL1"]  = 0;
+                marker["FriendlyL2"]  = 0;
+                marker["FriendlyL3"]  = 0;
+                break;
+            case 1:
+                marker["FriendlyL1"]  = 1;
+                marker["FriendlyL2"]  = 0;
+                marker["FriendlyL3"]  = 0;
+                break;
+            case 2:
+                marker["FriendlyL1"]  = 0;
+                marker["FriendlyL2"]  = 1;
+                marker["FriendlyL3"]  = 0;
+                break;
+            case 3:
+                marker["FriendlyL1"]  = 0;
+                marker["FriendlyL2"]  = 0;
+                marker["FriendlyL3"]  = 1;
+                break;
+            default: break;
+        }
+
+        //Indicaciones
+        if (ratingUsuarioIndicaciones == null || ratingUsuarioIndicaciones== undefined) {
+            marker["ForeignLanguageTreatmentExplanationTrue"] = 0;
+            marker["ForeignLanguageTreatmentExplanationFalse"] = 0;
+        }
+        else if (ratingUsuarioIndicaciones=='up') { //Positivo
+            marker["ForeignLanguageTreatmentExplanationTrue"] = 1;
+            marker["ForeignLanguageTreatmentExplanationFalse"] = 0;
+        }
+        else { //Negativo
+            marker["ForeignLanguageTreatmentExplanationFalse"] = 1;
+            marker["ForeignLanguageTreatmentExplanationTrue"] = 0;
+        }
+
+        console.log('Objeto Marker modificado');
+
+        //Poner el Timeout y hacerlo tal cual como el editar
+    }
+}
+
+function toggleBounce() {
+    if (marker.getAnimation() != null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.DROP);
+    }
+}
+
+function obtenerNombre(element) {
+    if (!element.value) {
+        nombreClinica = null;
+    }
+    else {
+        nombreClinica = element.value;
+        verificarVisibilidad();
+    }
 }
 
 function obtenerCoordenadas(valor) {
 
     var geocoder = new google.maps.Geocoder();
+
+    mapa = null;
+    marker = null;
 
     geocoder.geocode( { 'address': valor}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -306,9 +539,31 @@ function obtenerCoordenadas(valor) {
                 streetViewControl: false
             });
 
-            var marker = new google.maps.Marker({
+            google.maps.event.addListener(mapa, 'click', function(event) {
+                placeMarker(event.latLng);
+            });
+
+            function placeMarker(location) {
+
+                 if (marker == undefined) {
+                     marker = new google.maps.Marker({
+                         position: location,
+                         map: mapa,
+                         animation: google.maps.Animation.DROP
+                     });
+                 }
+                 else {
+                    marker.setPosition(location);
+                 }
+
+                toggleBounce();
+                mapa.panTo(location);
+            }
+
+            marker = new google.maps.Marker({
                 map: mapa,
-                position: {lat:latitude, lng: longitude}
+                position: {lat:latitude, lng: longitude},
+                animation: google.maps.Animation.DROP
             });
 
             google.maps.event.addDomListener(window, "resize", function() {
@@ -317,27 +572,7 @@ function obtenerCoordenadas(valor) {
                 mapa.setCenter(center);
             });
 
+            verificarVisibilidad();
         }
     });
-
-    /*geocoder.geocode({'address': valor}, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: resultsMap,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });*/
-
-    // var response = geocoder.geocode(valor);
-    //
-    // for (var i = 0; i < response.results.length; i++) {
-    //     var result = response.results[i];
-    //     Logger.log('%s: %s, %s', result.formatted_address, result.geometry.location.lat,
-    //         result.geometry.location.lng);
-    // }
-
 }
