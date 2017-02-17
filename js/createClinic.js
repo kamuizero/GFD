@@ -10,6 +10,9 @@ var ratingUsuarioInglesDoc, ratingUsuarioChinoDoc, ratingUsuarioEspanolDoc, rati
     ratingUsuarioFL, ratingUsuarioIndicaciones;
 var mapa, marker;
 var nombreClinica, direccionClinica;
+var atributosTotales;
+var atributosExitosos = 0;
+var atributosFallidos = 0;
 
 //===================
 //METODOS Y FUNCIONES
@@ -269,6 +272,8 @@ function resetStars() {
 
 function addClinic() {
 
+    $("#Loading").show();
+
     var ok = true;
 
     //Agarrar los valores
@@ -298,7 +303,7 @@ function addClinic() {
     //Agregar
 
     if (ok) {
-        alert('Agregar la clinica');
+        console.log('Agregar la clinica');
 
         marker["title"] = nombreClinica;
         marker["description"] = direccionClinica;
@@ -481,10 +486,61 @@ function addClinic() {
             marker["ForeignLanguageTreatmentExplanationTrue"] = 0;
         }
 
+        //Agarrar el ID
+
         console.log('Objeto Marker modificado');
 
-        //Poner el Timeout y hacerlo tal cual como el editar
+        sparqlGetMaxClinicId();
     }
+}
+
+function finishAddClinic(id) {
+    marker["id"] = id;
+    console.log("La nueva clinica va a tener un id de " + id);
+    $("#Loading").hide();
+
+    //Ya aqui esta completo el objeto
+
+    //Poner el Timeout y hacerlo tal cual como el editar
+    /*
+    atributosTotales = datos.length;
+
+    var ms = 400;
+
+    //Aqui poner el ciclo con el timeOut para que efectivamente se realice la actualizacion
+    for (var i = 0; i<datos.length; i++) {
+        console.log("Atributos totales: " + atributosTotales);
+        console.log("Atributos exitosos: " + atributosExitosos + " -- Atributos fallidos: " + atributosFallidos);
+
+        setTimeout(evaluarClinica({id: marker.id,
+            atributo: datos[i].atributo,
+            valor: datos[i].valor}),ms);
+
+        ms += 100;
+    }
+
+    setTimeout(function() {
+            if ((updatesExitosos + updatesFallidos) == updatesTotales) {
+                if (updatesExitosos == updatesTotales) {
+                    alert("Insercion exitosa");
+                    $("#Loading").hide();
+                    console.log("Re-cargar pagina");
+                    sparqlReadClinic(marker.id);
+                }
+                else {
+                    alert("Insercion parcialmente exitosa");
+                    $("#Loading").hide();
+                }
+
+                updatesExitosos = 0;
+                updatesFallidos = 0;
+                updatesTotales = 0;
+            }
+        }
+        ,900);
+
+    console.log("FINALIZO EL WHILE - Atributos Exitosos: " + atributosExitosos + " -- Atributos Fallidos: " + atributosFallidos);
+*/
 }
 
 function toggleBounce() {

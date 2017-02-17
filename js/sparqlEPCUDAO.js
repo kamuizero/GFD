@@ -34,6 +34,31 @@ function sparqlRead(query){
     });
 }
 
+function sparqlGetMaxClinicId() {
+    /*
+     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+     select ?result
+     where {
+     ?s rdfs:label ?o .
+     BIND(xsd:integer(?o) AS ?result)
+     FILTER(?result > 0)
+     }
+     ORDER BY DESC(?result)
+     LIMIT 1
+     */
+    rdfmgr = new RDFmgr("APT");
+
+    var query = "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> select ?result where { ?s rdfs:label ?o . BIND(xsd:integer(?o) AS ?result) FILTER(?result > 0) } ORDER BY DESC(?result) LIMIT 1";
+
+    rdfmgr.executeSparql( {
+        sparql: query,
+        inference: false,
+        projectID:"APT",
+        success: getID,
+        error: getErrorMsg
+    });
+}
+
 function sparqlReadClinic(id){
 
     rdfmgr = new RDFmgr("APT");
@@ -448,6 +473,17 @@ function maketable(re){
 
     //terminoCreacionObjeto(clinicas);
     cargarClinicasRDF(clinicas);
+}
+
+function getID(re) {
+
+    var id = null;
+
+    while(re.next() && !id) {
+        id = Math.round(re.getValue(0)) + 1;
+    }
+
+    finishAddClinic(id);
 }
 
 function getErrorMsg(eType,eMsg,eInfo){
