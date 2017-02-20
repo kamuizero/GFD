@@ -500,6 +500,45 @@ function finishAddClinic(id) {
     $("#Loading").hide();
 
     //Ya aqui esta completo el objeto
+    var prefijo = "http://linkdata.org/resource/rdf1s4853i#";
+    var formato = "TURTLE";
+    var lista = {};
+    var atributo; //Sujeto, Predicado, Objeto
+
+    // atributo = {
+    //     sujeto: prefijo + id,
+    //     predicado: prefijo + "name",
+    //     objeto: marker.title
+    // };
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "name",
+        objeto: marker.title
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "address",
+        objeto: marker.description
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: "geo:lat",
+        objeto: marker.position.lat()
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: "geo:long",
+        objeto: marker.position.lng()
+    });
+
+
+    for (var i=0; i<29; i++) {
+
+    }
 
     //Poner el Timeout y hacerlo tal cual como el editar
     /*
