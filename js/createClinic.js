@@ -497,7 +497,6 @@ function addClinic() {
 function finishAddClinic(id) {
     marker["id"] = id;
     console.log("La nueva clinica va a tener un id de " + id);
-    $("#Loading").hide();
 
     //Ya aqui esta completo el objeto
     var prefijo = "http://linkdata.org/resource/rdf1s4853i#";
@@ -505,11 +504,15 @@ function finishAddClinic(id) {
     var lista = {};
     var atributo; //Sujeto, Predicado, Objeto
 
-    // atributo = {
-    //     sujeto: prefijo + id,
-    //     predicado: prefijo + "name",
-    //     objeto: marker.title
-    // };
+    atributo = "@prefix pre:<" + prefijo + "> .";
+
+    prefijo = ""; //Fix para no tener que cambiar todas las lineas de codigo de la siguiente parte
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: "rdfs:label",
+        objeto: marker.id
+    });
 
     lista.push({
         sujeto: prefijo + id,
@@ -535,51 +538,194 @@ function finishAddClinic(id) {
         objeto: marker.position.lng()
     });
 
+    //Doctor Ingles
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksEnglishTrue",
+        objeto: marker.doctorSpeaksEnglishTrue
+    });
 
-    for (var i=0; i<29; i++) {
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksEnglishFalse",
+        objeto: marker.doctorSpeaksEnglishFalse
+    });
 
+    //Doctor Chino
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksChineseTrue",
+        objeto: marker.doctorSpeaksChineseTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksChineseFalse",
+        objeto: marker.doctorSpeaksChineseFalse
+    });
+
+    //Doctor Coreano
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksKoreanTrue",
+        objeto: marker.doctorSpeaksKoreanTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksKoreanFalse",
+        objeto: marker.doctorSpeaksKoreanFalse
+    });
+
+    //Doctor Espanol
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksSpanishTrue",
+        objeto: marker.doctorSpeaksSpanishTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksSpanishFalse",
+        objeto: marker.doctorSpeaksSpanishFalse
+    });
+
+    //Doctor Otro
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksOtherTrue",
+        objeto: marker.doctorSpeaksOtherTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "doctorSpeaksOtherFalse",
+        objeto: marker.doctorSpeaksOtherFalse
+    });
+
+    //Staff Ingles
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksEnglishTrue",
+        objeto: marker.staffSpeaksEnglishTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksEnglishFalse",
+        objeto: marker.staffSpeaksEnglishFalse
+    });
+
+    //Staff Chino
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksChineseTrue",
+        objeto: marker.staffSpeaksChineseTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksChineseFalse",
+        objeto: marker.staffSpeaksChineseFalse
+    });
+
+    //Staff Coreano
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksKoreanTrue",
+        objeto: marker.staffSpeaksKoreanTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksKoreanFalse",
+        objeto: marker.staffSpeaksKoreanFalse
+    });
+
+    //Staff Espanol
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksSpanishTrue",
+        objeto: marker.staffSpeaksSpanishTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksSpanishFalse",
+        objeto: marker.staffSpeaksSpanishFalse
+    });
+
+    //Staff Otro
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksOtherTrue",
+        objeto: marker.staffSpeaksOtherTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "staffSpeaksOtherFalse",
+        objeto: marker.staffSpeaksOtherFalse
+    });
+
+    //Friendly level
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "FriendlyL1",
+        objeto: marker.FriendlyL1
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "FriendlyL2",
+        objeto: marker.FriendlyL2
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "FriendlyL3",
+        objeto: marker.FriendlyL3
+    });
+
+    //Indicaciones
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "ForeignLanguageTreatmentExplanationTrue",
+        objeto: marker.ForeignLanguageTreatmentExplanationTrue
+    });
+
+    lista.push({
+        sujeto: prefijo + id,
+        predicado: prefijo + "ForeignLanguageTreatmentExplanationFalse",
+        objeto: marker.ForeignLanguageTreatmentExplanationFalse
+    });
+
+    for (var i=0; i<30; i++) {
+
+        if (lista[i].predicado == "geo:lat" || lista[i].predicado == "geo:long" || lista[i].predicado == "rdfs:label") {
+            atributo = atributo + " pre:" + id + "<" + lista[i].predicado + ">" + ' "' + lista[i].objeto + '".';
+        }
+        else {
+            atributo = atributo + " pre:" + id + " pre:" + lista[i].predicado + ' "' + lista[i].objeto + '".';
+        }
     }
+
+    //Aqui ya esta listo supuestamente el statement
+
+    //Solamente hay que hacer 1 statement, hay que armarlo con el prefix
+    //@prefix pre:<http://linkdata.org/resource/rdf1s4853i#> . pre:ID pre:Atributo "VALOR". pre:ID pre:Atributo "VALOR".
+
 
     //Poner el Timeout y hacerlo tal cual como el editar
-    /*
-    atributosTotales = datos.length;
 
-    var ms = 400;
+    setTimeout(sparqlInsertClinic(atributo),500);
+}
 
-    //Aqui poner el ciclo con el timeOut para que efectivamente se realice la actualizacion
-    for (var i = 0; i<datos.length; i++) {
-        console.log("Atributos totales: " + atributosTotales);
-        console.log("Atributos exitosos: " + atributosExitosos + " -- Atributos fallidos: " + atributosFallidos);
-
-        setTimeout(evaluarClinica({id: marker.id,
-            atributo: datos[i].atributo,
-            valor: datos[i].valor}),ms);
-
-        ms += 100;
-    }
-
-    setTimeout(function() {
-            if ((updatesExitosos + updatesFallidos) == updatesTotales) {
-                if (updatesExitosos == updatesTotales) {
-                    alert("Insercion exitosa");
-                    $("#Loading").hide();
-                    console.log("Re-cargar pagina");
-                    sparqlReadClinic(marker.id);
-                }
-                else {
-                    alert("Insercion parcialmente exitosa");
-                    $("#Loading").hide();
-                }
-
-                updatesExitosos = 0;
-                updatesFallidos = 0;
-                updatesTotales = 0;
-            }
-        }
-        ,900);
-
-    console.log("FINALIZO EL WHILE - Atributos Exitosos: " + atributosExitosos + " -- Atributos Fallidos: " + atributosFallidos);
-*/
+function insercionExitosa() {
+    alert("New clinic created - クリニックの追加は成功しました");
+    $("#Loading").hide();
+    //Recargar la pagina
+    location.assign("create.html");
 }
 
 function toggleBounce() {

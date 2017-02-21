@@ -75,6 +75,17 @@ function sparqlReadClinic(id){
     });
 }
 
+function sparqlInsertClinic(datos) {
+    rdfmgr.insertStatement({
+        type: "N3",
+        rdfdata: datos,
+        success: insertSuccess,
+        error: getErrorMsg,
+        overwrite: false
+    });
+
+}
+
 function updateInstance(voto){
 
     var sujeto, predicado, objeto;
@@ -484,6 +495,11 @@ function getID(re) {
     }
 
     finishAddClinic(id);
+}
+
+function insertSuccess() {
+    console.log("Clinica insertada");
+    setTimeout(insercionExitosa(),800);
 }
 
 function getErrorMsg(eType,eMsg,eInfo){
