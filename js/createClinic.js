@@ -500,8 +500,7 @@ function finishAddClinic(id) {
 
     //Ya aqui esta completo el objeto
     var prefijo = "http://linkdata.org/resource/rdf1s4853i#";
-    var formato = "TURTLE";
-    var lista = {};
+    var lista = [];
     var atributo; //Sujeto, Predicado, Objeto
 
     atributo = "@prefix pre:<" + prefijo + "> .";
@@ -703,18 +702,14 @@ function finishAddClinic(id) {
     for (var i=0; i<30; i++) {
 
         if (lista[i].predicado == "geo:lat" || lista[i].predicado == "geo:long" || lista[i].predicado == "rdfs:label") {
-            atributo = atributo + " pre:" + id + "<" + lista[i].predicado + ">" + ' "' + lista[i].objeto + '".';
+            atributo = atributo + " pre:" + id + " <" + lista[i].predicado + ">" + ' "' + lista[i].objeto + '".';
         }
         else {
             atributo = atributo + " pre:" + id + " pre:" + lista[i].predicado + ' "' + lista[i].objeto + '".';
         }
     }
 
-    //Aqui ya esta listo supuestamente el statement
-
-    //Solamente hay que hacer 1 statement, hay que armarlo con el prefix
-    //@prefix pre:<http://linkdata.org/resource/rdf1s4853i#> . pre:ID pre:Atributo "VALOR". pre:ID pre:Atributo "VALOR".
-
+    console.log(atributo);
 
     //Poner el Timeout y hacerlo tal cual como el editar
 
