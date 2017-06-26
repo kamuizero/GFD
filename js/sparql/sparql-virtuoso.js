@@ -2,7 +2,7 @@
  * Created by AEPM on 2017/06/26.
  */
 var query;
-var grafo = "http://lod.mdg";
+var grafo = "http://lod.mdg/";
 const endpoint = "http://127.0.0.1:8890/sparql/";
 
 /*
@@ -11,6 +11,10 @@ const endpoint = "http://127.0.0.1:8890/sparql/";
 function sparqlQuery(query, baseURL, format) {
     if(!format)
         format="application/json";
+
+    if(!baseURL)
+        baseURL = endpoint;
+
     var params={
         "default-graph": "", "should-sponge": "soft", "query": query,
         "debug": "on", "timeout": "", "format": format,
@@ -18,6 +22,7 @@ function sparqlQuery(query, baseURL, format) {
     };
 
     var querypart="";
+
     for(var k in params) {
         querypart+=k+"="+encodeURIComponent(params[k])+"&";
     }
@@ -46,8 +51,7 @@ function sparqlQuery(query, baseURL, format) {
 /*
  * Ejemplo de llamada a la clase
  */
-var query="PREFIX lkd:<http://linkdata.org/property/rdf1s4853i> select * from<" + dsn + "> where { ?clinica ?atributo ?valor. } ORDER BY DESC (?clinica) LIMIT 200";
+//var query="PREFIX lkd:<http://linkdata.org/property/rdf1s4853i> select * from<" + grafo + "> where { ?clinica ?atributo ?valor. } ORDER BY DESC (?clinica) LIMIT 200";
 
-var data=sparqlQuery(query,endpoint);
+//var data=sparqlQuery(query, endpoint);
 
-console.log(data);

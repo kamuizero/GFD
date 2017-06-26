@@ -9,8 +9,8 @@ $(document).ready(function () {
     //TODO: Plus alfa de elegir el datasource ya sea el archivo de LinkData o el servidor Sparql (del laboratorio)
 });
 
-$.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
-});
+// $.getScript("http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js", function() {
+// });
 
 //////////////////////////////
 ///// Variables globales /////
@@ -61,8 +61,10 @@ function initMap() {
     });
 
     //cargarClinicas();
-    llamarClinicasRDF();
+    //llamarClinicasRDF();
+    llamarClinicasVirtuoso();
 }
+
 
 //================================================
 //Funcion que crea el marcador y lo agrega al mapa
@@ -363,6 +365,11 @@ function llamarClinicasRDF() {
     leerData();
 }
 
+function llamarClinicasVirtuoso() {
+    cargarClinicasRDF(leerClinicasVirtuoso());
+}
+
+//Clinicas es un arreglo que contiene todas las clinicas
 function cargarClinicasRDF(clinicas) {
     //Finalizo carga del RDF, mostrarlas como marcadores en el mapa
     for (var k = 0, clinicaP; clinicaP = clinicas[k]; k++) {
