@@ -20,13 +20,13 @@ var posicionInicial = {lat: 35.1547072, lng: 136.9613086}; //Aichi
 
 var icons = {
     health: {
-        icon: 'res/icon/health_icon.png'
+        icon: 'resources/icon/health_icon.png'
     },
     clinic: {
-        icon: 'res/icon/clinic_icon.png'
+        icon: 'resources/icon/clinic_icon.png'
     },
     hospital: {
-        icon: 'res/icon/hospital_icon.png'
+        icon: 'resources/icon/hospital_icon.png'
     }
 };
 var map;
@@ -178,7 +178,7 @@ function crearContenido(marker) {
 
     if ( ((ingles.doctor!='0 %') && (ingles.doctor!='No ratings yet'))  ||
         ( (ingles.staff!='No ratings yet') && (ingles.staff!='0 %')) ) {
-        ingles = '&nbsp; <img src="res/img/lang/united-states.png" class="resize"/> ';
+        ingles = '&nbsp; <img src="resources/img/lang/united-states.png" class="resize"/> ';
     }
     else {
         ingles = '';
@@ -186,7 +186,7 @@ function crearContenido(marker) {
 
     if ( ((chino.doctor!='0 %') && (chino.doctor!='No ratings yet'))  ||
         ( (chino.staff!='No ratings yet') && (chino.staff!='0 %')) ) {
-        chino = '&nbsp; <img src="res/img/lang/china.png" class="resize"/> ';
+        chino = '&nbsp; <img src="resources/img/lang/china.png" class="resize"/> ';
     }
     else {
         chino = '';
@@ -194,7 +194,7 @@ function crearContenido(marker) {
 
     if ( ((coreano.doctor!='0 %') && (coreano.doctor!='No ratings yet'))  ||
         ( (coreano.staff!='No ratings yet') && (coreano.staff!='0 %')) ) {
-        coreano = '&nbsp; <img src="res/img/lang/south-korea.png" class="resize"/> ';
+        coreano = '&nbsp; <img src="resources/img/lang/south-korea.png" class="resize"/> ';
     }
     else {
         coreano = '';
@@ -202,7 +202,7 @@ function crearContenido(marker) {
 
     if ( ((espanol.doctor!='0 %') && (espanol.doctor!='No ratings yet'))  ||
         ( (espanol.staff!='No ratings yet') && (espanol.staff!='0 %')) ) {
-        espanol = '&nbsp; <img src="res/img/lang/spain.png" class="resize"/> ';
+        espanol = '&nbsp; <img src="resources/img/lang/spain.png" class="resize"/> ';
     }
     else {
         espanol = '';
@@ -210,7 +210,7 @@ function crearContenido(marker) {
 
     if ( ((otro.doctor!='0 %') && (otro.doctor!='No ratings yet'))  ||
         ( (otro.staff!='No ratings yet') && (otro.staff!='0 %')) ) {
-        otro = '&nbsp; <img src="res/img/lang/hospital.png" class="resize"/> ';
+        otro = '&nbsp; <img src="resources/img/lang/hospital.png" class="resize"/> ';
     }
     else {
         otro = '';
@@ -221,7 +221,7 @@ function crearContenido(marker) {
     var html = '<p style="align-content: center"><strong>' + marker.title + '</strong></p><br>' + marker.description +
         '<br><br>' +
         'Languages: ' +
-        '<div> <img src="res/img/lang/japan.png" class="resize"/> ' + ingles + chino + coreano + espanol + otro +
+        '<div> <img src="resources/img/lang/japan.png" class="resize"/> ' + ingles + chino + coreano + espanol + otro +
         '</div>' +
         '<p><a href="#" title="Click to add clinic review" onclick="reviewClinic(); return false;">'+
         'Review clinic</a></p>';

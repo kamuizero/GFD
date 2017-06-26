@@ -1,8 +1,8 @@
 /* ESTILO BASE */
 @font-face{
     /*font-family: "Roboto-Medium";*/
-    /*src: url("/res/fonts/Roboto/Roboto-Medium.ttf"),*/
-    /*url("../res/fonts/Roboto/Roboto-Medium.ttf");*/
+    /*src: url("/resources/fonts/Roboto/Roboto-Medium.ttf"),*/
+    /*url("../resources/fonts/Roboto/Roboto-Medium.ttf");*/
 
     /*Para incluir mas fuentes, referenciar esta pagina:
     *
@@ -11,8 +11,8 @@
     */
 
     font-family: "ほのかアンティーク丸";
-    src: url("/res/fonts/antique-maru/font_1_ant-maru.ttf"),
-    url("../res/fonts/antique-maru/font_1_ant-maru.ttf") format("truetype");
+    src: url("/resources/fonts/antique-maru/font_1_ant-maru.ttf"),
+    url("../resources/fonts/antique-maru/font_1_ant-maru.ttf") format("truetype");
 }
 
 * {
@@ -332,10 +332,10 @@ a.btn:active {
 .tUp {
     width: 18px; /* you can use % */
     height: auto;
-    background-image:url(../res/img/like-color.png);
+    background-image:url(../resources/img/like-color.png);
 }
 .tDown {
-    background-image:url(../res/img/like-color.png);
+    background-image:url(../resources/img/like-color.png);
     -moz-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
@@ -380,8 +380,8 @@ a.btn:active {
 
 /* Image(s) */
 .starbox .stars .star_holder .star {
-    /*background-image: url('../res/img/5-large-333.png'); !* or any other image *!*/
-    background-image: url('../res/img/5-large.png'); /* or any other image */
+    /*background-image: url('../resources/img/5-large-333.png'); !* or any other image *!*/
+    background-image: url('../resources/img/5-large.png'); /* or any other image */
     width: 33px; /* make sure to use your image’s dimensions here */
     height: 33px;
 }
@@ -423,7 +423,7 @@ a.btn:active {
 #Loading
 {
     display: none;
-    background: rgba(35,35,35,.7) url('../res/gif/loading.gif') no-repeat 50% 50%;
+    background: rgba(35,35,35,.7) url('../resources/gif/loading.gif') no-repeat 50% 50%;
     width:100%;
     height:100%;
     position:fixed;

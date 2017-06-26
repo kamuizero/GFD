@@ -12,7 +12,7 @@
     <!--<script src="http://lodcu.cs.chubu.ac.jp/SparqlEPCU/RDFmgr/rdfmgr-2.0.0.js"></script>-->
     <script src="js/rdfmgr-2.0.0.js"></script>
     <script src="js/jquery-3.1.1.js"></script>
-    <script src="js/sparqlEPCUDAO.js"></script>
+    <script src="js/sparql/sparqlEPCUDAO.js"></script>
     <script src="js/createClinic.js"></script>
     <script src="js/jstarbox.js"></script>
 
@@ -23,7 +23,7 @@
 </div>
 
 <ul>
-    <li class="tablogo"><a href="javascript:void(0)" onclick="location.assign('index.html'); return false;"><img src="res/img/lang/hospital.png" style="width: 52px; height: auto"></a></li>
+    <li class="tablogo"><a href="javascript:void(0)" onclick="location.assign('index.html'); return false;"><img src="resources/img/lang/hospital.png" style="width: 52px; height: auto"></a></li>
     <li class="tablinks"><a href="javascript:void(0)" onclick="location.assign('create.html'); return false;" style="margin-top: 18px; margin-bottom: 16px" >CREATE</a></li>
     <li class="tablinks"><a href="javascript:void(0)" onclick="location.assign('dataSource.html'); return false;" style="margin-top: 18px; margin-bottom: 16px">SOURCE</a></li><li>
     <li class="tablinks"><a href="javascript:void(0)" onclick="location.assign('about.html'); return false;" style="margin-top: 18px; margin-bottom: 16px">ABOUT</a></li><li>
@@ -38,7 +38,7 @@
 
         <div id="contenedorLogoMapa" style="position: relative">
             <div id="mapC"></div>
-            <img id="imagenLogo" src="res/img/lang/hospital.png" style="float: left; margin-right: 25px; height: auto; width: 50%">
+            <img id="imagenLogo" src="resources/img/lang/hospital.png" style="float: left; margin-right: 25px; height: auto; width: 50%">
         </div>
 
         <form>
@@ -56,7 +56,7 @@
             <!--Idiomas-->
             <div id="divBanderasIdiomas">
                 <div id="divInglesDoc" class="infoIdioma" style="float: left; overflow: auto; width: 250px">
-                    <img id="banderaIngles" src="res/img/lang/united-states.png" class="imagenBanderaReview"/>
+                    <img id="banderaIngles" src="resources/img/lang/united-states.png" class="imagenBanderaReview"/>
                     <span class="labelIdioma">英語 - ENGLISH</span>
                     <br>
                     <span>Doctor: </span><span id="inglesDoc"></span> &nbsp;
@@ -77,7 +77,7 @@
                 </div>
 
                 <div id="divChinoDoc" class="infoIdioma">
-                    <img id="banderaChino" src="res/img/lang/china.png" class="imagenBanderaReview"/>
+                    <img id="banderaChino" src="resources/img/lang/china.png" class="imagenBanderaReview"/>
                     <span class="labelIdioma">中国語 - CHINESE</span>
                     <br>
                     <span>Doctor: </span><span id="chinoDoc"></span> &nbsp;
@@ -100,7 +100,7 @@
                 <br>
 
                 <div id="divCoreanoDoc" class="infoIdioma" style="float: left; overflow: auto; width: 250px">
-                    <img id="banderaCoreano" src="res/img/lang/south-korea.png" class="imagenBanderaReview"/>
+                    <img id="banderaCoreano" src="resources/img/lang/south-korea.png" class="imagenBanderaReview"/>
                     <span class="labelIdioma">韓国語 - KOREAN</span>
                     <br>
                     <span>Doctor: </span><span id="coreanoDoc"></span> &nbsp;
@@ -121,7 +121,7 @@
                 </div>
 
                 <div id="divEspanolDoc" class="infoIdioma">
-                    <img id="banderaEspanol" src="res/img/lang/spain.png" class="imagenBanderaReview"/>
+                    <img id="banderaEspanol" src="resources/img/lang/spain.png" class="imagenBanderaReview"/>
                     <span class="labelIdioma">スペイン語 - SPANISH</span>
                     <br>
                     <span>Doctor: </span><span id="espanolDoc"></span> &nbsp;
@@ -144,7 +144,7 @@
                 <br>
 
                 <div id="divOtroIdiomaDoc" class="infoIdioma" style="float: left; overflow: auto; width: 250px">
-                    <img id="banderaOtro" src="res/img/lang/other.png" class="imagenBanderaReview"/>
+                    <img id="banderaOtro" src="resources/img/lang/other.png" class="imagenBanderaReview"/>
                     <span class="labelIdioma">その他 - OTHER</span>
                     <br>
                     <span>Doctor: </span><span id="otroDoc"></span> &nbsp;

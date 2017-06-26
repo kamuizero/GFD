@@ -113,7 +113,7 @@ function recargarClinica(re) {
     var clinica, lat, long;
 
     var image = {
-        url: 'res/icon/health_icon.png',
+        url: 'resources/icon/health_icon.png',
         scaledSize : new google.maps.Size(35, 49)
     };
 
