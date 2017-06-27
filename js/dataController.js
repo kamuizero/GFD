@@ -21,7 +21,7 @@ function leerClinicasVirtuoso(){
     var query="PREFIX lkd:<http://linkdata.org/property/rdf1s4853i> select * from <" + grafo + "> " +
         "where { " +
         "?clinica ?atributo ?valor. " +
-        "FILTER(!strstarts(str(?clinica), str(<http://linkdata.org/property/>)) " +
+        "FILTER(!strstarts(str(?clinica), str(lkd:)) " +
         "&& str(?clinica) != <>) " +
         "}" +
         " ORDER BY DESC (?clinica)";
