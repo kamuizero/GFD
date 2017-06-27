@@ -18,7 +18,13 @@ function leerData() {
 function leerClinicasVirtuoso(){
     //Ejecutar el query inicial que trae todas las clinicas
     var grafo = "http://lod.mdg/";
-    var query="PREFIX lkd:<http://linkdata.org/property/rdf1s4853i> select * from <" + grafo + "> where { ?clinica ?atributo ?valor. } ORDER BY DESC (?clinica)";
+    var query="PREFIX lkd:<http://linkdata.org/property/rdf1s4853i> select * from <" + grafo + "> " +
+        "where { " +
+        "?clinica ?atributo ?valor. " +
+        "FILTER(!strstarts(str(?clinica), str(<http://linkdata.org/property/>)) " +
+        "&& str(?clinica) != <>) " +
+        "}" +
+        " ORDER BY DESC (?clinica)";
     var data = sparqlQuery(query, "http://127.0.0.1:8890/sparql/");
     //console.log(data);
     return crearArreglo(data);
